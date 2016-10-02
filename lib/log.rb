@@ -1,8 +1,10 @@
 require 'rainbow'; Rainbow.enabled = true
 
-require 'clock'
+require 'initializer'; Initializer.activate
 require 'dependency'; Dependency.activate
+require 'clock'
 
+require 'log/device'
 require 'log/log'
 
 __END__

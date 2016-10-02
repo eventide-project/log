@@ -16,4 +16,4 @@ require_relative '../init.rb'
 
 require 'test_bench'; TestBench.activate
 
-include Log
+require 'pp'
