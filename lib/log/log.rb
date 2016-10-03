@@ -82,9 +82,17 @@ class Log
 
     assure_level(level)
 
-    if precedent?(level) && tagged?(tags)
+    # if precedent?(level) && tagged?(tags)
+    #   write(text, level, tags)
+    # end
+    if write?(level, tags)
       write(text, level, tags)
     end
+  end
+
+  def write?(level, tags)
+    return false if level.nil? && !self.level.nil?
+    precedent?(level) && tagged?(tags)
   end
 
   def assure_level(level)

@@ -1,0 +1,43 @@
+require_relative 'automated_init'
+
+context "Log" do
+  context "Write Without Specifying a Level" do
+    context "Logger's Level Isn't Set" do
+      logger = Log::Controls::Log::Levels.example
+
+      message = SecureRandom.hex
+
+      logger.(message)
+
+      sink = logger.telemetry_sink
+
+      test "Logs the message" do
+        logged = sink.recorded_logged? do |record|
+          record.data.message == message
+        end
+
+        assert(logged)
+      end
+    end
+
+    context "Logger's Level Is Set" do
+      logger = Log::Controls::Log::Levels.example
+
+      logger.level = logger.level_names.first
+
+      message = SecureRandom.hex
+
+      logger.(message)
+
+      sink = logger.telemetry_sink
+
+      test "Doesn't log the message" do
+        logged = sink.recorded_logged? do |record|
+          record.data.message == message
+        end
+
+        refute(logged)
+      end
+    end
+  end
+end
