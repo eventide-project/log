@@ -15,11 +15,11 @@ module Log::Controls
     end
 
     class Example
-      dependency :logger, Log
+      dependency :logger, ::Log
 
       def self.build
         instance = new
-        Log.configure(instance)
+        ::Log.configure(instance)
         instance
       end
     end
