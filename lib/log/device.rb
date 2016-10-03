@@ -2,26 +2,24 @@ class Log
   class Device
     include SubjectName
 
-    initializer :subject, :io
+    initializer :io
 
-    def self.build(subject, io=nil)
+    def self.build(io=nil)
       io ||= STDERR
-      new(subject, io)
+      new(io)
     end
 
-    def self.configure(receiver, subject, attr_name: nil)
+    def self.configure(receiver, attr_name: nil)
       attr_name ||= :device
 
-      subject_name = subject_name(subject)
-
-      instance = build(subject_name)
+      instance = build
       receiver.public_send("#{attr_name}=", instance)
       instance
     end
 
-    def write(message, subject=nil)
-      subject = "#{subject} " || ''
-      io << "#{subject}#{message}\n"
+    def write(message, subject)
+      subject_name = subject_name(subject)
+      io << "#{subject_name}#{message}\n"
     end
   end
 end

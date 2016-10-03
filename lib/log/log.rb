@@ -74,7 +74,7 @@ class Log
   end
 
   def configure
-    Device.configure(self, subject)
+    Device.configure(self)
     self
   end
 
