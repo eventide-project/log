@@ -7,10 +7,22 @@ module Log::Controls
     module Levels
       def self.example
         logger = Log.example
-        logger.add_level(:higher)
-        logger.add_level(:middle)
-        logger.add_level(:lower)
+        logger.add_level(higher)
+        logger.add_level(middle)
+        logger.add_level(lower)
         logger
+      end
+
+      def self.higher
+        :higher
+      end
+
+      def self.middle
+        :middle
+      end
+
+      def self.lower
+        :lower
       end
     end
 

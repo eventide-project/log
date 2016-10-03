@@ -1,8 +1,17 @@
 class Log
+  class Error < RuntimeError; end
+
   include SubjectName
 
-  attr_accessor :level
+  attr_reader :level
   attr_reader :tags
+
+  def level=(level)
+    unless level.nil? || levels.has_key?(level)
+      raise Error, "Level #{level.inspect} must be one of: #{levels.keys.join(', ')}"
+    end
+    @level = level
+  end
 
   def levels
     @levels ||= {}

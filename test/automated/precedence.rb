@@ -4,13 +4,11 @@ context "Log" do
   context "Precedence" do
     logger = Log::Controls::Log::Levels.example
 
-    mid_point = logger.levels.length / 2
+    logger.level = Log::Controls::Log::Levels.middle
 
-    logger.level = logger.levels.keys[mid_point]
-
-    logger.('some message', logger.levels.keys.first)
-    logger.('some other message', logger.levels.keys[mid_point])
-    logger.('yet another message', logger.levels.keys.last)
+    logger.('some message', Log::Controls::Log::Levels.higher)
+    logger.('some other message', Log::Controls::Log::Levels.middle)
+    logger.('yet another message', Log::Controls::Log::Levels.lower)
 
     sink = logger.telemetry_sink
 
