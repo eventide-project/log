@@ -1,7 +1,7 @@
 require_relative 'init'
 require 'test_bench'; TestBench.activate
 
-logger = Log.build('some subject')
+logger = Log.build('levels demo')
 
 logger.add_level :higher_level
 logger.add_level :lower_level
@@ -28,6 +28,8 @@ assert proc { logger.('some message', :some_unknown_level)} do
  raises_error? Log::Error
 end
 
+
+logger = Log.build('tags demo')
 
 logger.tag = :some_tag
 
