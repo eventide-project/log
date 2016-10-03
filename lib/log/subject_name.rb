@@ -8,6 +8,8 @@ module Log::SubjectName
       name = subject.name
     elsif subject.is_a? String
       name = subject
+    elsif subject.is_a? Symbol
+      name = subject.to_s
     else
       name = subject.class.name
     end
