@@ -1,13 +1,11 @@
-class Telemetry
-  module Logger
-    module Dependency
-      def self.included(cls)
-        cls.class_exec do
-          dependency :logger, Telemetry::Logger
+class Log
+  module Dependency
+    def self.included(cls)
+      cls.class_exec do
+        dependency :logger, Log
 
-          def logger
-            @logger ||= Logger.configure self
-          end
+        def logger
+          @logger ||= Log.configure self
         end
       end
     end
