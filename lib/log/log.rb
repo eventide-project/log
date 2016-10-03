@@ -17,6 +17,10 @@ class Log
     @levels ||= {}
   end
 
+  def level_names
+    levels.keys.dup
+  end
+
   def tags=(tags)
     @tags = Array(tags)
   end
@@ -40,7 +44,6 @@ class Log
   def self.build(subject)
     instance = new(subject)
     instance.configure
-
     instance
   end
 
@@ -70,7 +73,7 @@ class Log
   end
 
   def configure
-    Device.configure(self, subject)
+    Device.configure(self)
     self
   end
 
@@ -101,12 +104,18 @@ class Log
   def write(text, level, tags)
     message = text
     device.write(message, subject)
-    telemetry.record :logged, Telemetry::Data.new(subject_name, text, level, tags)
+    telemetry_data = Telemetry::Data.new(subject_name, text, level, tags)
+    telemetry.record :logged, telemetry_data
   end
 
   def add_level(level)
-    return if levels.has_key?(level)
+    return if level?(level)
+    LevelMethod.define(self, level)
     levels[level] = levels.length
+  end
+
+  def level?(level)
+    levels.has_key?(level)
   end
 
   def ordinal(level=nil)
@@ -126,6 +135,15 @@ class Log
     sink = Telemetry.sink
     writer.telemetry.register sink
     sink
+  end
+
+  module LevelMethod
+    def self.define(instance, level_name)
+      level = level_name
+      instance.define_singleton_method(level) do |message, tags: nil|
+        self.(message, level, tags: tags)
+      end
+    end
   end
 
   module Telemetry
