@@ -4,6 +4,16 @@ module Log::Controls
       ::Log::Substitute.build
     end
 
+    module Levels
+      def self.example
+        logger = Log.example
+        logger.add_level(:higher)
+        logger.add_level(:middle)
+        logger.add_level(:lower)
+        logger
+      end
+    end
+
     module Operational
       def self.example
         ::Log.build(subject)

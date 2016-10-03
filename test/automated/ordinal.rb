@@ -29,7 +29,7 @@ context "Log" do
       ordinal = logger.ordinal(:something_else)
 
       test "Has no level" do
-        assert(ordinal.nil?)
+        assert(ordinal == -1)
       end
     end
   end

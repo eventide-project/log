@@ -70,7 +70,9 @@ class Log
     tags = Array(tags)
     tags << tag unless tag.nil?
 
-    write_level(text, level, tags) if tagged?(tags)
+    if precedent?(level) && tagged?(tags)
+      write(text, level, tags)
+    end
   end
 
   def tagged?(tags)
@@ -83,12 +85,14 @@ class Log
     tagged
   end
 
-  def write_level(text, level, tags)
-    # if level_index(level) >= level_index
-      message = text
-      device.write(message, subject)
-      telemetry.record :logged, Telemetry::Data.new(subject_name, text, level, tags)
-    # end
+  def precedent?(level)
+    ordinal(level) <= ordinal
+  end
+
+  def write(text, level, tags)
+    message = text
+    device.write(message, subject)
+    telemetry.record :logged, Telemetry::Data.new(subject_name, text, level, tags)
   end
 
   def add_level(level)
@@ -96,8 +100,13 @@ class Log
     levels[level] = levels.length
   end
 
-  def ordinal(level)
-    levels[level]
+  def ordinal(level=nil)
+    level ||= self.level
+    levels.fetch(level, no_ordinal)
+  end
+
+  def no_ordinal
+    -1
   end
 
   def subject_name
