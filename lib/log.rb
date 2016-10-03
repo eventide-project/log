@@ -2,6 +2,7 @@ require 'rainbow'; Rainbow.enabled = true
 
 require 'initializer'; Initializer.activate
 require 'dependency'; Dependency.activate
+require 'telemetry'
 require 'clock'
 
 class Log

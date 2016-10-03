@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'initializer'
   s.add_runtime_dependency 'dependency'
+  s.add_runtime_dependency 'telemetry'
   s.add_runtime_dependency 'clock'
 
   s.add_runtime_dependency 'rainbow'
