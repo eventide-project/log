@@ -1,7 +1,7 @@
 require_relative 'automated_init'
 
 context "Log" do
-  context "Level Index" do
+  context "Level Ordinal" do
     logger = Log::Controls::Log::Operational.example
 
     logger.add_level(:higher)
@@ -10,26 +10,26 @@ context "Log" do
     logger.level = :higher
 
     context "Higher precedence level" do
-      level_index = logger.level_index(:higher)
+      ordinal = logger.ordinal(:higher)
 
       test "Is added earlier" do
-        assert(level_index == 0)
+        assert(ordinal == 0)
       end
     end
 
     context "Lower precedence level" do
-      level_index = logger.level_index(:lower)
+      ordinal = logger.ordinal(:lower)
 
       test "Is added later" do
-        assert(level_index == 1)
+        assert(ordinal == 1)
       end
     end
 
     context "Unknown precedence level" do
-      level_index = logger.level_index(:something_else)
+      ordinal = logger.ordinal(:something_else)
 
       test "Has no level" do
-        assert(level_index.nil?)
+        assert(ordinal.nil?)
       end
     end
   end

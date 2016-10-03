@@ -5,7 +5,7 @@ class Log
   attr_reader :tags
 
   def levels
-    @levels ||= []
+    @levels ||= {}
   end
 
   def tags=(tags)
@@ -92,11 +92,12 @@ class Log
   end
 
   def add_level(level)
-    levels << level unless levels.include?(level)
+    return if levels.has_key?(level)
+    levels[level] = levels.length
   end
 
-  def level_index(level)
-    levels.index(level)
+  def ordinal(level)
+    levels[level]
   end
 
   def subject_name
