@@ -8,7 +8,7 @@ context "Log" do
 
     logger.('some message', :some_level)
 
-    records = logger.sink.logged_records
+    records = logger.telemetry_sink.logged_records
 
     test "Logged telemetry is recorded" do
       refute(records.empty?)

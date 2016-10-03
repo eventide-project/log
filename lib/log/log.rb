@@ -1,6 +1,16 @@
 class Log
   include SubjectName
 
+  attr_reader :tags
+
+  def tags=(tags)
+    @tags = Array(tags)
+  end
+
+  def tag=(tag)
+    self.tags = tag
+  end
+
   dependency :device, Device
 
   def telemetry
@@ -55,9 +65,25 @@ class Log
     tags = Array(tags)
     tags << tag unless tag.nil?
 
-    message = text
-    device.write(message, subject)
-    telemetry.record :logged, Telemetry::Data.new(subject_name, text, level, tags)
+    write_level(text, level, tags) if tagged?(tags)
+  end
+
+  def tagged?(tags)
+    tagged = true
+    unless self.tags.nil?
+      if (self.tags & tags).empty?
+        tagged = false
+      end
+    end
+    tagged
+  end
+
+  def write_level(text, level, tags)
+    # if level_index(level) >= level_index
+      message = text
+      device.write(message, subject)
+      telemetry.record :logged, Telemetry::Data.new(subject_name, text, level, tags)
+    # end
   end
 
   def subject_name
@@ -88,12 +114,12 @@ class Log
     def self.build
       instance = Log.new('(substitute logger)')
       sink = Log.register_telemetry_sink(instance)
-      instance.sink = sink
+      instance.telemetry_sink = sink
       instance
     end
 
     class Log < ::Log
-      attr_accessor :sink
+      attr_accessor :telemetry_sink
     end
   end
 end
