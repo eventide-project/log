@@ -19,7 +19,7 @@ class Log
 
     def write(message, subject)
       subject_name = subject_name(subject)
-      io << "#{subject_name}#{message}\n"
+      io << "#{subject_name} #{message}\n"
     end
   end
 end
