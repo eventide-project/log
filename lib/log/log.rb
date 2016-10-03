@@ -1,4 +1,6 @@
 class Log
+  include SubjectName
+
   dependency :device, Device
 
   initializer :subject
@@ -37,17 +39,6 @@ class Log
     end
 
     instance
-  end
-
-  def self.subject_name(subject)
-    if subject.is_a?(Class) || subject.is_a?(Module)
-      name = subject.name
-    elsif subject.is_a? String
-      name = subject
-    else
-      name = subject.class.name
-    end
-    name
   end
 
   def configure
