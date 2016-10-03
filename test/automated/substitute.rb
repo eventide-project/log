@@ -6,16 +6,12 @@ context "Log" do
 
     logger = subject.logger
 
-    logger.('some message')
+    logger.('some message', :some_level)
 
-    test "Messages are recorded" do
-      entries = logger.entries { |entry| entry.include? 'some message' }
-      refute(entries.empty?)
-    end
+    records = logger.sink.logged_records
 
-    test "Detect message" do
-      detected = logger.entry? { |entry| entry.include? 'some message' }
-      assert(detected)
+    test "Logged telemetry is recorded" do
+      refute(records.empty?)
     end
   end
 end

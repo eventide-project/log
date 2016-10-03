@@ -84,32 +84,16 @@ class Log
     end
   end
 
-  # module Substitute
-  #   def self.build
-  #     Cycle::None.build.tap do |instance|
-  #       sink = Cycle.register_telemetry_sink(instance)
-  #       instance.sink = sink
-  #     end
-  #   end
-  # end
-
-
-
-
-  class Substitute < Log
+  module Substitute
     def self.build
-      instance = new('(substitute logger)')
-      instance.device = Device::Substitute.build
+      instance = Log.new('(substitute logger)')
+      sink = Log.register_telemetry_sink(instance)
+      instance.sink = sink
       instance
     end
 
-    def entries(&predicate)
-      predicate ||= -> { true }
-      device.entries(&predicate)
-    end
-
-    def entry?(&predicate)
-      device.entry?(&predicate)
+    class Log < ::Log
+      attr_accessor :sink
     end
   end
 end
