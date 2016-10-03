@@ -18,10 +18,10 @@ context "Log" do
       logger = Log::Controls::Log::Levels.example
       unchanged_level = logger.level
 
-      control_level = :some_other_level
+      unknown_level = :some_other_level
 
       test "Is an error" do
-        assert proc { logger.level = control_level } do
+        assert proc { logger.level = unknown_level } do
           raises_error? Log::Error
         end
       end
