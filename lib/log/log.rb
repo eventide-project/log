@@ -7,9 +7,7 @@ class Log
   attr_reader :tags
 
   def level=(level)
-    unless level.nil? || levels.has_key?(level)
-      raise Error, "Level #{level.inspect} must be one of: #{levels.keys.join(', ')}"
-    end
+    assure_level(level)
     @level = level
   end
 
@@ -82,8 +80,16 @@ class Log
     tags = Array(tags)
     tags << tag unless tag.nil?
 
+    assure_level(level)
+
     if precedent?(level) && tagged?(tags)
       write(text, level, tags)
+    end
+  end
+
+  def assure_level(level)
+    unless level.nil? || !levels? || level?(level)
+      raise Error, "Level #{level.inspect} must be one of: #{levels.keys.join(', ')}"
     end
   end
 
@@ -116,6 +122,10 @@ class Log
 
   def level?(level)
     levels.has_key?(level)
+  end
+
+  def levels?
+    !levels.empty?
   end
 
   def ordinal(level=nil)
