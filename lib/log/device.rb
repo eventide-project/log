@@ -23,20 +23,5 @@ class Log
       subject = "#{subject} " || ''
       io << "#{subject}#{message}\n"
     end
-
-    class Substitute < Device
-      def self.build
-        new('(substitute device)', [])
-      end
-
-      def entries(&predicate)
-        predicate ||= -> { true }
-        io.select(&predicate)
-      end
-
-      def entry?(&predicate)
-        io.any?(&predicate)
-      end
-    end
   end
 end
