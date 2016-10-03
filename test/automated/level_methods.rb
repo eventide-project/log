@@ -11,7 +11,7 @@ context "Log" do
       logger.level_names.each do |level_name|
         context "#{level_name.inspect}" do
 
-          logger.public_send(level_name, "some #{level_name} message", tags: [:some_tag])
+          logger.public_send(level_name, "some #{level_name} message", tag: :some_tag)
 
           telemetry_data = sink.logged_records do |record|
             record.data.level == level_name

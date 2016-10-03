@@ -140,8 +140,8 @@ class Log
   module LevelMethod
     def self.define(instance, level_name)
       level = level_name
-      instance.define_singleton_method(level) do |message, tags: nil|
-        self.(message, level, tags: tags)
+      instance.define_singleton_method(level) do |message, tag: nil, tags: nil|
+        self.(message, level, tag: tag, tags: tags)
       end
     end
   end
