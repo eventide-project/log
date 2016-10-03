@@ -5,6 +5,7 @@ class Log
         dependency :logger, Log
 
         def logger
+          pp self.class.name
           @logger ||= Log.configure self
         end
       end

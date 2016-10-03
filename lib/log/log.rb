@@ -17,6 +17,10 @@ class Log
     @levels ||= {}
   end
 
+  def level_names
+    levels.keys.dup
+  end
+
   def tags=(tags)
     @tags = Array(tags)
   end

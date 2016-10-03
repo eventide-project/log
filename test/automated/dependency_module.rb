@@ -5,6 +5,8 @@ context "Dependency Module" do
     include Log::Dependency
   end
 
+  pp Example
+
   obj = Example.new
 
   test "Adds the logger accessor" do
