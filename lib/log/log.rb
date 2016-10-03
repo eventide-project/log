@@ -1,7 +1,12 @@
 class Log
   include SubjectName
 
+  attr_accessor :level
   attr_reader :tags
+
+  def levels
+    @levels ||= []
+  end
 
   def tags=(tags)
     @tags = Array(tags)
@@ -84,6 +89,14 @@ class Log
       device.write(message, subject)
       telemetry.record :logged, Telemetry::Data.new(subject_name, text, level, tags)
     # end
+  end
+
+  def add_level(level)
+    levels << level unless levels.include?(level)
+  end
+
+  def level_index(level)
+    levels.index(level)
   end
 
   def subject_name
