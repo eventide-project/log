@@ -43,6 +43,8 @@ class Log
 
   def self.build(subject)
     instance = new(subject)
+    Levels.add(instance)
+    instance.level = Defaults.level
     instance
   end
 
@@ -161,15 +163,41 @@ class Log
   end
 
   module LevelMethod
-    def self.define(instance, level_name)
+    def self.define(logger, level_name)
       level = level_name
-      instance.define_singleton_method(level) do |message, tag: nil, tags: nil|
+      logger.define_singleton_method(level) do |message, tag: nil, tags: nil|
         self.(message, level, tag: tag, tags: tags)
       end
     end
 
-    def self.remove(instance, level_name)
-      instance.instance_eval "undef #{level_name}"
+    def self.remove(logger, level_name)
+      logger.instance_eval "undef #{level_name}"
+    end
+  end
+
+  module Levels
+    def self.add(logger)
+      Defaults.levels.each do |level|
+        logger.add_level(level)
+      end
+    end
+  end
+
+  module Defaults
+    def self.level
+      :info
+    end
+
+    def self.levels
+      [
+        :fatal,
+        :error,
+        :warn,
+        :info,
+        :debug,
+        :trace,
+        :data
+      ]
     end
   end
 
