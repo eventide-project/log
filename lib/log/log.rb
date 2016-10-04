@@ -1,6 +1,7 @@
 class Log
   class Error < RuntimeError; end
 
+  extend DefaultLevels
   include SubjectName
 
   attr_reader :level
@@ -57,7 +58,7 @@ class Log
 
   def self.build(subject)
     instance = new(subject)
-    Levels.add(instance)
+    DefaultLevels.add(instance)
     instance.level = Defaults.level
     instance
   end
@@ -144,8 +145,6 @@ class Log
   end
 
   def tags_intersect?(message_tags)
-    puts "intersection"
-    pp (logger_tags & message_tags)
     !(logger_tags & message_tags).empty?
   end
   alias :logger_tags_intersect? :tags_intersect?
@@ -226,37 +225,13 @@ class Log
     end
   end
 
-  ## levels
-  def self.levels
-    @levels ||= Defaults.levels
-  end
-
-
-  module Levels
-    def self.add(logger)
-      logger.class.levels.each do |level|
-        logger.add_level(level)
-      end
-    end
-  end
-
-  module Defaults
-    def self.level
-      :info
-    end
-
-    def self.levels
-      [
-        :fatal,
-        :error,
-        :warn,
-        :info,
-        :debug,
-        :trace,
-        :data
-      ]
-    end
-  end
+  # module Levels
+  #   def self.add(logger)
+  #     logger.class.levels.each do |level|
+  #       logger.add_level(level)
+  #     end
+  #   end
+  # end
 
   module Telemetry
     class Sink
@@ -291,6 +266,24 @@ class Log
         def puts(*)
         end
       end
+    end
+  end
+
+  module Defaults
+    def self.level
+      :info
+    end
+
+    def self.levels
+      [
+        :fatal,
+        :error,
+        :warn,
+        :info,
+        :debug,
+        :trace,
+        :data
+      ]
     end
   end
 end

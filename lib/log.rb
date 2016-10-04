@@ -10,5 +10,6 @@ end
 
 require 'log/subject_name'
 require 'log/dependency'
+require 'log/default_levels'
 require 'log/log'
 
