@@ -99,7 +99,7 @@ class Log
   def tagged?(tags)
     tagged = true
     unless self.tags.nil?
-      if self.tags.include?(:_none) && tags.empty?
+      if self.tags.include?(:_untagged) && tags.empty?
         tagged = true
       elsif self.tags.include?(:_all) && !tags.empty?
         tagged = true

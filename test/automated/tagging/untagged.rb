@@ -2,10 +2,10 @@ require_relative '../automated_init'
 
 context "Log" do
   context "Tagging" do
-    context "None" do
+    context "Untagged" do
       logger = Log::Substitute.build
 
-      logger.tags = [:some_tag, :_none]
+      logger.tags = [:some_tag, :_untagged]
 
       sink = logger.telemetry_sink
 
