@@ -9,7 +9,6 @@ class Log
 end
 
 require 'log/subject_name'
-require 'log/device'
 require 'log/dependency'
 require 'log/log'
 
