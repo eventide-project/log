@@ -111,8 +111,7 @@ class Log
   def write(text, level, tags)
     message = text
     io << "#{subject_name} #{message}\n"
-    telemetry_data = Telemetry::Data.new(subject_name, text, level, tags)
-    telemetry.record :logged, telemetry_data
+    telemetry.record :logged, Telemetry::Data.new(subject_name, text, level, tags)
   end
 
   def add_level(level)
