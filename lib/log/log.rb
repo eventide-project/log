@@ -44,7 +44,7 @@ class Log
   def self.build(subject)
     instance = new(subject)
     Levels.add(instance)
-    instance.level = :info
+    instance.level = Defaults.level
     instance
   end
 
@@ -176,7 +176,19 @@ class Log
   end
 
   module Levels
-    def self.entries
+    def self.add(logger)
+      Defaults.levels.each do |level|
+        logger.add_level(level)
+      end
+    end
+  end
+
+  module Defaults
+    def self.level
+      :info
+    end
+
+    def self.levels
       [
         :fatal,
         :error,
@@ -186,12 +198,6 @@ class Log
         :trace,
         :data
       ]
-    end
-
-    def self.add(logger)
-      entries.each do |level|
-        logger.add_level(level)
-      end
     end
   end
 
