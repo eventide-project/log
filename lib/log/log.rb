@@ -103,6 +103,8 @@ class Log
         tagged = true
       elsif self.tags.include?(:_all) && !tags.empty?
         tagged = true
+      elsif self.tags.include?(:_all) && self.tags.include?(:_untagged)
+        tagged = true
       elsif (self.tags & tags).empty?
         tagged = false
       end
