@@ -4,7 +4,7 @@ class Log
   include SubjectName
 
   attr_reader :level
-  attr_reader :tags
+  # attr_reader :tags
 
   def level=(level)
     assure_level(level)
@@ -19,13 +19,27 @@ class Log
     levels.keys.dup
   end
 
+  def tags
+    @tags ||= []
+  end
+  alias :logger_tags :tags
+
   def tags=(tags)
+    if tags.nil?
+      @tags = nil
+      return
+    end
     @tags = Array(tags)
   end
 
   def tag=(tag)
     self.tags = tag
   end
+
+  def tags?
+    !tags.empty?
+  end
+  alias :logger_tags? :tags?
 
   def io
     @io ||= STDERR
@@ -87,7 +101,7 @@ class Log
 
   def write?(level, tags)
     return false if level.nil? && !self.level.nil?
-    precedent?(level) && tagged?(tags)
+    precedent?(level) && write_tag?(tags)
   end
 
   def assure_level(level)
@@ -96,22 +110,53 @@ class Log
     end
   end
 
-  def tagged?(tags)
-    tagged = true
-    unless self.tags.nil?
-      if self.tags.include?(:_untagged) && tags.empty?
-        tagged = true
-      elsif self.tags.include?(:_all) && !tags.empty?
-        tagged = true
-      elsif self.tags.include?(:_all) && self.tags.include?(:_untagged)
-        tagged = true
-      elsif (self.tags & tags).empty?
-        tagged = false
+  ## filter concern
+  def write_tag?(message_tags)
+    message_tags ||= []
+
+    if message_tags.empty? && !logger_tags?
+      return true
+    end
+
+    if !message_tags.empty? && log_all_tags?
+      return true
+    end
+
+    if message_tags.empty? && log_untagged?
+      return true
+    end
+
+    if !message_tags.empty? && logger_tags?
+      if logger_tags_intersect?(message_tags)
+        return true
       end
     end
-    tagged
+
+    false
   end
 
+  def log_all_tags?
+    logger_tag?(:_all)
+  end
+
+  def log_untagged?
+    logger_tag?(:_untagged)
+  end
+
+  def tags_intersect?(message_tags)
+    puts "intersection"
+    pp (logger_tags & message_tags)
+    !(logger_tags & message_tags).empty?
+  end
+  alias :logger_tags_intersect? :tags_intersect?
+
+  ## tag concern
+  def tag?(tag)
+    tags.include?(tag)
+  end
+  alias :logger_tag? :tag?
+
+  ## level concern
   def precedent?(level)
     ordinal(level) <= ordinal
   end
@@ -181,9 +226,15 @@ class Log
     end
   end
 
+  ## levels
+  def self.levels
+    @levels ||= Defaults.levels
+  end
+
+
   module Levels
     def self.add(logger)
-      Defaults.levels.each do |level|
+      logger.class.levels.each do |level|
         logger.add_level(level)
       end
     end

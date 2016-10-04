@@ -4,6 +4,7 @@ context "Log" do
   context "Level Methods" do
     logger = Log::Controls::Log::Levels.example
     logger.level = Log::Controls::Log::Levels.lower
+    logger.tag = :some_tag
 
     sink = logger.telemetry_sink
 
