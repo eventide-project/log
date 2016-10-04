@@ -110,7 +110,7 @@ class Log
 
   def write(text, level, tags)
     message = text
-    io << "#{subject_name} #{message}\n"
+    io.puts "#{subject_name} #{message}"
     telemetry.record :logged, Telemetry::Data.new(subject_name, text, level, tags)
   end
 
@@ -118,6 +118,19 @@ class Log
     return if level?(level)
     LevelMethod.define(self, level)
     levels[level] = levels.length
+  end
+
+  def remove_level(level)
+    return unless level?(level)
+    LevelMethod.remove(self, level)
+    levels.delete(level)
+  end
+
+  def reset
+    level_names.each do |level_name|
+      remove_level(level_name)
+    end
+    self.level = nil
   end
 
   def level?(level)
@@ -154,6 +167,10 @@ class Log
         self.(message, level, tag: tag, tags: tags)
       end
     end
+
+    def self.remove(instance, level_name)
+      instance.instance_eval "undef #{level_name}"
+    end
   end
 
   module Telemetry
@@ -180,6 +197,15 @@ class Log
 
     class Log < ::Log
       attr_accessor :telemetry_sink
+
+      def io
+        @io ||= NullIO.new
+      end
+
+      class NullIO
+        def puts(*)
+        end
+      end
     end
   end
 end
