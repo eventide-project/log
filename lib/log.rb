@@ -11,5 +11,7 @@ end
 require 'log/subject_name'
 require 'log/dependency'
 require 'log/default_levels'
+require 'log/telemetry'
+require 'log/substitute'
 require 'log/log'
 

@@ -2,6 +2,7 @@ class Log
   class Error < RuntimeError; end
 
   extend DefaultLevels
+  extend Telemetry::Register
   include SubjectName
 
   attr_reader :level
@@ -58,8 +59,7 @@ class Log
 
   def self.build(subject)
     instance = new(subject)
-    DefaultLevels.add(instance)
-    instance.level = Defaults.level
+    Defaults.set(instance)
     instance
   end
 
@@ -206,12 +206,6 @@ class Log
     @subject_name ||= self.class.subject_name(subject)
   end
 
-  def self.register_telemetry_sink(writer)
-    sink = Telemetry.sink
-    writer.telemetry.register sink
-    sink
-  end
-
   module LevelMethod
     def self.define(logger, level_name)
       level = level_name
@@ -222,50 +216,6 @@ class Log
 
     def self.remove(logger, level_name)
       logger.instance_eval "undef #{level_name}"
-    end
-  end
-
-  # module Levels
-  #   def self.add(logger)
-  #     logger.class.levels.each do |level|
-  #       logger.add_level(level)
-  #     end
-  #   end
-  # end
-
-  module Telemetry
-    class Sink
-      include ::Telemetry::Sink
-
-      record :logged
-    end
-
-    Data = Struct.new :subject_name, :message, :level, :tags
-
-    def self.sink
-      Sink.new
-    end
-  end
-
-  module Substitute
-    def self.build
-      instance = Log.new('(substitute logger)')
-      sink = Log.register_telemetry_sink(instance)
-      instance.telemetry_sink = sink
-      instance
-    end
-
-    class Log < ::Log
-      attr_accessor :telemetry_sink
-
-      def io
-        @io ||= NullIO.new
-      end
-
-      class NullIO
-        def puts(*)
-        end
-      end
     end
   end
 
@@ -284,6 +234,11 @@ class Log
         :trace,
         :data
       ]
+    end
+
+    def self.set(logger)
+      DefaultLevels.add(logger)
+      logger.level = logger.class.level
     end
   end
 end
