@@ -2,7 +2,7 @@ require_relative 'automated_init'
 
 context "Log" do
   context "Level Ordinal" do
-    logger = Log::Controls::Log::Operational.example
+    logger = Log::Controls::Log.example
 
     logger.add_level(:higher)
     logger.add_level(:lower)
