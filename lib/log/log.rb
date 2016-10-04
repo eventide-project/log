@@ -27,7 +27,9 @@ class Log
     self.tags = tag
   end
 
-  dependency :device, Device
+  def io
+    @io ||= STDERR
+  end
 
   def telemetry
     @telemetry ||= ::Telemetry.build
@@ -41,7 +43,6 @@ class Log
 
   def self.build(subject)
     instance = new(subject)
-    instance.configure
     instance
   end
 
@@ -70,11 +71,6 @@ class Log
     instance
   end
 
-  def configure
-    Device.configure(self)
-    self
-  end
-
   def call(text, level=nil, tag: nil, tags: nil)
     tags ||= []
     tags = Array(tags)
@@ -82,9 +78,6 @@ class Log
 
     assure_level(level)
 
-    # if precedent?(level) && tagged?(tags)
-    #   write(text, level, tags)
-    # end
     if write?(level, tags)
       write(text, level, tags)
     end
@@ -117,7 +110,7 @@ class Log
 
   def write(text, level, tags)
     message = text
-    device.write(message, subject)
+    io << "#{subject_name} #{message}\n"
     telemetry_data = Telemetry::Data.new(subject_name, text, level, tags)
     telemetry.record :logged, telemetry_data
   end
