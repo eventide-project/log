@@ -1,7 +1,10 @@
-require_relative 'automated_init'
+require_relative '../automated_init'
+
+# does substitute have default level methods?
+
 
 context "Log" do
-  context "Default Levels" do
+  context "Reset" do
     logger = Log.build('some subject')
 
     test "Logger's level is info" do

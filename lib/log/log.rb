@@ -54,7 +54,7 @@ class Log
     telemetry.record :logged, Telemetry::Data.new(subject_name, text, level, tags)
   end
 
-  def reset
+  def clear
     level_names.each do |level_name|
       remove_level(level_name)
     end

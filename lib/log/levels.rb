@@ -24,7 +24,7 @@ module Log::Levels
       @levels = levels
     end
 
-    def reset
+    def clear
       @levels = []
       @level = nil
     end

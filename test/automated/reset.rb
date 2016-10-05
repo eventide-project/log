@@ -11,7 +11,7 @@ context "Log" do
 
     assert(logger.levels.length == 2)
 
-    logger.reset
+    logger.clear
 
     test "Logger has no levels" do
       assert(logger.levels.empty?)
