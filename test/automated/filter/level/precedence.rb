@@ -14,8 +14,6 @@ context "Log" do
 
         sink = logger.telemetry_sink
 
-        pp sink
-
         context "Messages with higher level than the logger" do
           logged = sink.recorded_logged? do |record|
             record.data.level == :higher

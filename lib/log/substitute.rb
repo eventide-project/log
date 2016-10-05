@@ -1,9 +1,13 @@
 module Log::Substitute
   def self.build
-    instance = Log.build('(substitute logger)')
+    instance = Log.build(subject)
     sink = Log.register_telemetry_sink(instance)
     instance.telemetry_sink = sink
     instance
+  end
+
+  def self.subject
+    '(substitute logger)'
   end
 
   class Log < ::Log
