@@ -1,8 +1,10 @@
 module Log::Controls
   module Log
     def self.example
-      example = ::Log::Substitute.build
-      example.clear
+      example = ::Log::Substitute::Log.new(::Log::Substitute.subject)
+
+      sink = ::Log.register_telemetry_sink(example)
+      example.telemetry_sink = sink
 
       example
     end
