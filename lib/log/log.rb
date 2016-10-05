@@ -25,7 +25,7 @@ class Log
   def self.build(subject)
     instance = new(subject)
     Clock::UTC.configure(instance)
-    instance.class.set_defaults(instance)
+    set_defaults(instance)
     instance
   end
 
