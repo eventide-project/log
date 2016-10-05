@@ -14,11 +14,8 @@ context "Log" do
 
     telemetry_data = sink.logged_records.first.data
 
-    pp telemetry_data
-
     context "Line" do
       line = telemetry_data.line
-      p line
 
       context "Header" do
         iso_time = Clock::UTC.iso8601(time)
@@ -26,11 +23,19 @@ context "Log" do
         test "Time" do
           assert(line.include? "[#{iso_time}]")
         end
-        test "Subject"
-        test "Level"
+
+        test "Subject" do
+          assert(line.include? logger.subject_name)
+        end
+
+        test "Level" do
+          assert(line.include? 'SOME_LEVEL')
+        end
       end
 
-      test "Message"
+      test "Message" do
+        assert(line.include? 'Some message')
+      end
     end
   end
 end
