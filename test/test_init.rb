@@ -1,14 +1,6 @@
 ENV['CONSOLE_DEVICE'] ||= 'stdout'
-ENV['LOG_COLOR'] ||= 'on'
-
-if ENV['LOG_LEVEL']
-  ENV['LOGGER'] ||= 'on'
-else
-  ENV['LOG_LEVEL'] ||= 'todo'
-end
-
-ENV['LOGGER'] ||= 'on'
-ENV['LOG_OPTIONAL'] ||= 'on'
+ENV['LOG_FORMATTER'] ||= 'on'
+ENV['LOG_LEVEL'] ||= 'data'
 
 puts RUBY_DESCRIPTION
 
