@@ -25,8 +25,8 @@ end
 
 
 logger = Log.no_defaults('Higher Level Demo')
-
-pp logger.levels
+logger.add_level :higher_level
+logger.add_level :lower_level
 
 # Set logger level
 # Log entries with a lower level of precedence are not written
@@ -49,6 +49,8 @@ logger.('some unleveled message')
 
 
 logger = Log.no_defaults('Lower Level Demo')
+logger.add_level :higher_level
+logger.add_level :lower_level
 
 logger.level = :lower_level
 
@@ -68,6 +70,7 @@ logger.('some tagged message', tag: :some_tag)
 
 logger.('some other tagged message', tags: [:some_other_tag, :yet_another_tag])
 # doesn't write
+
 
 logger = Log.no_defaults('Multiple Tags Demo')
 
