@@ -21,6 +21,10 @@ class Log
     @levels ||= {}
   end
 
+  def levels?
+    !levels.empty?
+  end
+
   def level_names
     levels.keys.dup
   end
@@ -74,6 +78,8 @@ class Log
   end
 
   def write?(level, tags)
+    ## TODO remove this
+    ## write if message level nil and logger level nil
     return false if level.nil? && !self.level.nil?
     precedent?(level) && write_tag?(tags)
   end
@@ -122,10 +128,6 @@ class Log
   end
   alias :logger_tag? :tag?
 
-  ## level concern
-  def precedent?(level)
-    ordinal(level) <= ordinal
-  end
 
   def write(text, level, tags)
     message = text
@@ -139,23 +141,6 @@ class Log
       remove_level(level_name)
     end
     self.level = nil
-  end
-
-  def level?(level)
-    levels.has_key?(level)
-  end
-
-  def levels?
-    !levels.empty?
-  end
-
-  def ordinal(level=nil)
-    level ||= self.level
-    levels.fetch(level, no_ordinal)
-  end
-
-  def no_ordinal
-    -1
   end
 
   module Defaults
