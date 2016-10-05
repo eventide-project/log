@@ -1,7 +1,7 @@
 require_relative 'automated_init'
 
 context "Log" do
-  context "Reset" do
+  context "Clear" do
     logger = Log::Controls::Log.example
 
     logger.add_level(:higher)

@@ -2,7 +2,7 @@ require_relative '../../automated_init'
 
 context "Log" do
   context "Tagging" do
-    logger = Log::Substitute.build
+    logger = Log::Controls::Log.example
 
     logger.tag = :some_tag
 

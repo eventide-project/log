@@ -4,7 +4,7 @@ context "Log" do
   context "Filter" do
     context "Tag" do
       context "All and Untagged" do
-        logger = Log::Substitute.build
+        logger = Log::Controls::Log.example
 
         logger.tags = [:_all, :_untagged]
 

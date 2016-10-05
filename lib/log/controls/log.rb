@@ -3,6 +3,7 @@ module Log::Controls
     def self.example
       example = ::Log::Substitute.build
       example.clear
+
       example
     end
 

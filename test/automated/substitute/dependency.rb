@@ -7,12 +7,8 @@ context "Log" do
 
       logger = subject.logger
 
-      logger.('some message')
-
-      records = logger.telemetry_sink.logged_records
-
-      test "Logged telemetry is recorded" do
-        refute(records.empty?)
+      test "Is the logger's substitute" do
+        assert(logger.is_a? Log::Substitute::Log)
       end
     end
   end
