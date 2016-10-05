@@ -30,3 +30,5 @@ Gemfile.lock
 *.log
 
 materials
+
+demo.txt
