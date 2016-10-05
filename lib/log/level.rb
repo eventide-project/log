@@ -20,6 +20,12 @@ module Log::Level
     levels.delete(level)
   end
 
+  def assure_level(level)
+    unless level.nil? || !levels? || level?(level)
+      raise Log::Error, "Level #{level.inspect} must be one of: #{levels.keys.join(', ')}"
+    end
+  end
+
   module Method
     def self.define(logger, level_name)
       level = level_name

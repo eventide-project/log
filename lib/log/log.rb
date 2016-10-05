@@ -6,6 +6,16 @@ class Log
   include Level
   include SubjectName
 
+  initializer :subject
+
+  def io
+    @io ||= STDERR
+  end
+
+  def telemetry
+    @telemetry ||= ::Telemetry.build
+  end
+
   def levels
     @levels ||= {}
   end
@@ -36,15 +46,6 @@ class Log
   end
   alias :logger_tags? :tags?
 
-  def io
-    @io ||= STDERR
-  end
-
-  def telemetry
-    @telemetry ||= ::Telemetry.build
-  end
-
-  initializer :subject
 
   def self.registry
     @registry ||= {}
@@ -96,12 +97,6 @@ class Log
   def write?(level, tags)
     return false if level.nil? && !self.level.nil?
     precedent?(level) && write_tag?(tags)
-  end
-
-  def assure_level(level)
-    unless level.nil? || !levels? || level?(level)
-      raise Error, "Level #{level.inspect} must be one of: #{levels.keys.join(', ')}"
-    end
   end
 
   ## filter concern
