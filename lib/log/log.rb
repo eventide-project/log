@@ -2,6 +2,7 @@ class Log
   class Error < RuntimeError; end
 
   extend DefaultLevels
+  extend Registry
   extend Telemetry::Register
   include Level
   include SubjectName
@@ -46,11 +47,6 @@ class Log
   end
   alias :logger_tags? :tags?
 
-
-  def self.registry
-    @registry ||= {}
-  end
-
   def self.build(subject)
     instance = new(subject)
     Defaults.set(instance)
@@ -62,23 +58,6 @@ class Log
 
     instance = get(receiver)
     receiver.public_send("#{attr_name}=", instance)
-    instance
-  end
-
-  def self.get(subject)
-    register(subject)
-  end
-
-  def self.register(subject)
-    subject_name = subject_name(subject)
-
-    instance = registry[subject_name]
-
-    if instance.nil?
-      instance = build(subject)
-      registry[subject_name] = instance
-    end
-
     instance
   end
 

@@ -9,6 +9,7 @@ class Log
 end
 
 require 'log/subject_name'
+require 'log/registry'
 require 'log/dependency'
 require 'log/level'
 require 'log/default_levels'
