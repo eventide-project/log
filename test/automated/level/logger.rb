@@ -15,7 +15,6 @@ context "Log" do
     end
 
     context "Set a level that isn't one of the logger's levels" do
-      # logger = Log::Controls::Log::Levels.example
       logger = Log.no_defaults('some subject')
       unchanged_level = logger.level
 

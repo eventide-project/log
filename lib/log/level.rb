@@ -1,4 +1,6 @@
 module Log::Level
+  LevelInfo = Struct.new(:name, :ordinal, :message_formatter)
+
   def level
     @level
   end
@@ -18,10 +20,14 @@ module Log::Level
   end
   alias :logger_level? :level?
 
-  def add_level(level)
+  def add_level(level, &message_formatter)
     return nil if logger_level?(level)
+
     Method.define(self, level)
-    levels[level] = levels.length
+
+    message_formatter = Log::Format::Defaults.message_formatter unless block_given?
+
+    levels[level] = LevelInfo.new(level, levels.length, message_formatter)
   end
 
   def remove_level(level)
@@ -46,7 +52,9 @@ module Log::Level
 
   def ordinal(level=nil)
     level ||= logger_level
-    levels.fetch(level, no_ordinal)
+    level = levels[level]
+    return no_ordinal if level.nil?
+    level.ordinal
   end
 
   def logger_ordinal

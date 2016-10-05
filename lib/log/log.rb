@@ -35,6 +35,10 @@ class Log
     instance
   end
 
+  def self.bare(subject)
+    no_defaults(subject)
+  end
+
   def self.configure(receiver, attr_name: nil)
     attr_name ||= :logger
     instance = get(receiver)
