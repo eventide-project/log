@@ -71,7 +71,7 @@ class Log
 
   def self.set_defaults(logger)
     logger.class.add_levels(logger)
-    logger.level = logger.class.level
-    logger.tags = logger.class.tags
+    logger.level = Defaults.level
+    logger.tags = Defaults.tags
   end
 end
