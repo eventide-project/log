@@ -6,6 +6,16 @@ module Log::Defaults
     :info
   end
 
+  def self.tags
+    env_tags = ENV['LOG_TAGS']
+
+    return [] if env_tags.nil?
+
+    tags = env_tags.split(',')
+
+    tags.map { |tag| tag.to_sym }
+  end
+
   def self.device
     env_device = ENV['CONSOLE_DEVICE']
 
@@ -55,10 +65,5 @@ module Log::Defaults
       trace: proc { |message| Rainbow(message).white },
       data: proc { |message| Rainbow(message).cyan }
     }
-  end
-
-  def self.set(logger)
-    Log::Levels::Default.add(logger)
-    logger.level = logger.class.level
   end
 end

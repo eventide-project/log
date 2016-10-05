@@ -90,6 +90,10 @@ module Log::Level
     self.logger_level = min_level
   end
 
+  def no_level!
+    self.logger_level = nil
+  end
+
   module Method
     def self.define(logger, level_name)
       level = level_name

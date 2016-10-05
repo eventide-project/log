@@ -25,7 +25,7 @@ class Log
   def self.build(subject)
     instance = new(subject)
     Clock::UTC.configure(instance)
-    Defaults.set(instance)
+    set_defaults(instance)
     instance
   end
 
@@ -67,5 +67,11 @@ class Log
       remove_level(level_name)
     end
     self.level = nil
+  end
+
+  def self.set_defaults(logger)
+    logger.class.add_levels(logger)
+    logger.level = Defaults.level
+    logger.tags = Defaults.tags
   end
 end

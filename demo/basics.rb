@@ -1,4 +1,4 @@
-require_relative 'init'
+require_relative '../init'
 require 'test_bench'; TestBench.activate
 require 'pp'
 
@@ -110,13 +110,6 @@ end
 # Default levels and color for min level
 logger = Log.build('Levels and Colors for Min Level')
 logger.min_level!
-
-logger.level_names.each do |level_name|
-  logger.("some #{level_name} message", level_name)
-end
-
-# Default levels and color for default level
-logger = Log.build('Levels and Colors for Min Level')
 
 logger.level_names.each do |level_name|
   logger.("some #{level_name} message", level_name)
