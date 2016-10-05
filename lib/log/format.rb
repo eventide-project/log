@@ -14,4 +14,10 @@ module Log::Format
       "[#{time}] #{subject} #{level.to_s.upcase}"
     end
   end
+
+  module Defaults
+    def self.message_formatter
+      proc {|message| message }
+    end
+  end
 end
