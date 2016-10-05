@@ -4,8 +4,8 @@ context "Log" do
   context "Default Levels" do
     logger = Log.build('some subject')
 
-    test "Logger's level is info" do
-      assert(logger.level == :info)
+    test "Logger's level" do
+      assert(logger.level == Log::Defaults.level)
     end
 
     context "Level Methods" do
