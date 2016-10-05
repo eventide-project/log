@@ -31,7 +31,15 @@ module Log::Level
   end
 
   def assure_level(level)
-    unless level.nil? || !levels? || level?(level)
+    if level.nil?
+      return
+    end
+
+    if !levels?
+      raise Log::Error, "Level #{level.inspect} cannot be set. The logger has no levels."
+    end
+
+    if !level?(level)
       raise Log::Error, "Level #{level.inspect} must be one of: #{levels.keys.join(', ')}"
     end
   end

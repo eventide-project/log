@@ -1,7 +1,8 @@
 require_relative 'init'
 require 'test_bench'; TestBench.activate
+require 'pp'
 
-logger = Log.build('levels demo')
+logger = Log.no_defaults('Logger Demo')
 
 logger.add_level :higher_level
 logger.add_level :lower_level
@@ -23,6 +24,10 @@ assert proc { logger.('some message', :some_unknown_level) } do
 end
 
 
+logger = Log.no_defaults('Higher Level Demo')
+
+pp logger.levels
+
 # Set logger level
 # Log entries with a lower level of precedence are not written
 logger.level = :higher_level
@@ -42,6 +47,9 @@ logger.lower_level 'some lower message'
 logger.('some unleveled message')
 # doesn't write because it's logged at the nil level, which has the lowest precedence
 
+
+logger = Log.no_defaults('Lower Level Demo')
+
 logger.level = :lower_level
 
 logger.higher_level 'some higher message'
@@ -51,7 +59,7 @@ logger.lower_level 'some lower message'
 # writes
 
 
-logger = Log.build('tags demo')
+logger = Log.no_defaults('Tag Demo')
 
 logger.tag = :some_tag
 
@@ -61,6 +69,7 @@ logger.('some tagged message', tag: :some_tag)
 logger.('some other tagged message', tags: [:some_other_tag, :yet_another_tag])
 # doesn't write
 
+logger = Log.no_defaults('Multiple Tags Demo')
 
 logger.tags = [:some_tag, :some_other_tag]
 
@@ -71,7 +80,7 @@ logger.('some other tagged message', tags: [:some_other_tag, :yet_another_tag])
 # writes
 
 
-logger = Log.build('tags demo')
+logger = Log.no_defaults('Levels and Tags')
 
 logger.add_level :higher_level
 logger.add_level :lower_level

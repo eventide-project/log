@@ -4,8 +4,11 @@ context "Log" do
   context "Telemetry" do
     context "Logged" do
       logger = Log::Controls::Log.example
+      logger.add_level :some_level
+
       logger.level = :some_level
       logger.tag = :some_tag
+
       sink = logger.telemetry_sink
 
       logger.('some message', :some_level, tag: :some_tag)

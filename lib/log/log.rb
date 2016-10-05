@@ -29,6 +29,12 @@ class Log
     instance
   end
 
+  def self.no_defaults(subject)
+    instance = new(subject)
+    Clock::UTC.configure(instance)
+    instance
+  end
+
   def self.configure(receiver, attr_name: nil)
     attr_name ||= :logger
     instance = get(receiver)
