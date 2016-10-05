@@ -17,5 +17,7 @@ require 'log/tags'
 require 'log/filter'
 require 'log/telemetry'
 require 'log/substitute'
+require 'log/write'
+require 'log/format'
 require 'log/log'
 

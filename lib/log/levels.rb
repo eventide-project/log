@@ -6,10 +6,12 @@ module Log::Levels
   def levels
     @levels ||= {}
   end
+  alias :logger_levels :levels
 
   def levels?
     !levels.empty?
   end
+  alias :logger_levels? :levels?
 
   def level_names
     levels.keys.dup
