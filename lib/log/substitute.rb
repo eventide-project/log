@@ -13,12 +13,12 @@ module Log::Substitute
   class Log < ::Log
     attr_accessor :telemetry_sink
 
-    def io
-      @io ||= NullIO.new
+    def device
+      @device ||= NullDevice
     end
 
-    class NullIO
-      def puts(*)
+    class NullDevice
+      def self.puts(*)
       end
     end
   end

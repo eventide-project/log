@@ -15,7 +15,7 @@ module Log::Defaults
       if !['stderr', 'stdout'].include?(env_device)
         raise "The CONSOLE_DEVICE should be either 'stderr' (default) or 'stdout'"
       else
-        device = (setting == 'stderr' ? STDERR : STDOUT)
+        device = (env_device == 'stderr' ? STDERR : STDOUT)
       end
     else
       device = STDERR
@@ -24,6 +24,15 @@ module Log::Defaults
     device
   end
 
+  def self.formatters
+    env_formatters = ENV['LOG_FORMATTERS']
+
+    if env_formatters.nil?
+      env_formatters = :on
+    end
+
+    env_formatters.to_sym
+  end
 
   def self.levels
     [
@@ -37,7 +46,7 @@ module Log::Defaults
     ]
   end
 
-  def self.formatters
+  def self.level_formatters
     {
       fatal: proc { |message| Rainbow(message).white.bg(:black) },
       error: proc { |message| Rainbow(message).red.bg(:black) },

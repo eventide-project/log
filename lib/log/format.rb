@@ -5,7 +5,11 @@ module Log::Format
 
   def self.message(message, &message_formatter)
     return message unless block_given?
-    message_formatter.(message)
+    if Log::Defaults.formatters == :on
+      return message_formatter.(message)
+    else
+      return message
+    end
   end
 
   def self.header(time, subject, level)
