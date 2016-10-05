@@ -14,8 +14,8 @@ class Log
 
   initializer :subject
 
-  def io
-    @io ||= STDERR
+  def device
+    @device ||= Defaults.device
   end
 
   def telemetry
@@ -67,39 +67,5 @@ class Log
       remove_level(level_name)
     end
     self.level = nil
-  end
-
-  module Defaults
-    def self.level
-      :info
-    end
-
-    def self.levels
-      [
-        :fatal,
-        :error,
-        :warn,
-        :info,
-        :debug,
-        :trace,
-        :data
-      ]
-    end
-
-    def self.formatters
-      {
-        fatal: proc { |message| Rainbow(message).white.bg(:black) },
-        error: proc { |message| Rainbow(message).red.bg(:black) },
-        warn: proc { |message| Rainbow(message).yellow.bg(:black) },
-        info: proc { |message| Rainbow(message).green },
-        trace: proc { |message| Rainbow(message).white },
-        data: proc { |message| Rainbow(message).cyan }
-      }
-    end
-
-    def self.set(logger)
-      Levels::Default.add(logger)
-      logger.level = logger.class.level
-    end
   end
 end

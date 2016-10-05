@@ -7,6 +7,14 @@ module Log::Level
   alias :logger_level :level
 
   def level=(level)
+    if [:_min, :_max].include?(level)
+      if level == :_min
+        level = min_level
+      else
+        level = max_level
+      end
+    end
+
     assure_level(level)
     @level = level
   end
@@ -66,12 +74,20 @@ module Log::Level
     -1
   end
 
+  def max_level
+    logger_levels.keys.last
+  end
+
+  def min_level
+    logger_levels.keys.first
+  end
+
   def max_level!
-    self.logger_level = logger_levels.keys.last
+    self.logger_level = max_level
   end
 
   def min_level!
-    self.logger_level = logger_levels.keys.first
+    self.logger_level = min_level
   end
 
   module Method

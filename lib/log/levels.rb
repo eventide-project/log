@@ -41,7 +41,7 @@ module Log::Levels
 
     def self.add(logger)
       logger.class.levels.each do |level|
-        logger.add_level(level, &Log::Defaults.formatters[level])
+        logger.add_level(level, &Log::Defaults.level_formatters[level])
       end
     end
   end

@@ -20,5 +20,6 @@ require 'log/substitute'
 require 'log/write'
 require 'log/format'
 require 'log/format/color'
+require 'log/defaults'
 require 'log/log'
 
