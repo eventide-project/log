@@ -1,5 +1,4 @@
 ENV['CONSOLE_DEVICE'] ||= 'stdout'
-ENV['LOG_FORMATTERS'] ||= 'on'
 ENV['LOG_LEVEL'] ||= 'data'
 
 puts RUBY_DESCRIPTION
