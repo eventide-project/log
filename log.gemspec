@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name = 'log'
-  s.version = '0.0.0.0'
-  s.summary = 'Logging to STDERR with levels, tagging, and coloring'
+  s.version = '0.1.0.0'
+  s.summary = 'Logging to STD IO with levels, tagging, and coloring'
   s.description = ' '
 
   s.authors = ['The Eventide Project']
