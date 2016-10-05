@@ -46,7 +46,7 @@ class Log
     instance
   end
 
-  def call(text, level=nil, tag: nil, tags: nil)
+  def call(message, level=nil, tag: nil, tags: nil)
     tags ||= []
     tags = Array(tags)
     tags << tag unless tag.nil?
@@ -54,7 +54,7 @@ class Log
     assure_level(level)
 
     if write?(level, tags)
-      write(text, level, tags)
+      write(message, level, tags)
     end
   end
 
