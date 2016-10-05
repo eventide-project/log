@@ -1,6 +1,6 @@
 module Log::Filter
-  def precedent?(level)
-    ordinal(level) <= ordinal
+  def write_level?(level)
+    precedent?(level)
   end
 
   def write_tag?(message_tags)
