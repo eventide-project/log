@@ -1,6 +1,18 @@
 module Log::Filter
-  def write_level?(level)
-    precedent?(level)
+  def write_level?(message_level)
+    if message_level.nil? && !logger_level?
+      return true
+    end
+
+    if message_level.nil? || !logger_level?
+      return false
+    end
+
+    precedent?(message_level)
+  end
+
+  def precedent?(message_level)
+    ordinal(message_level) <= logger_ordinal
   end
 
   def write_tag?(message_tags)

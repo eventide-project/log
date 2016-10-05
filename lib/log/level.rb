@@ -9,8 +9,12 @@ module Log::Level
     @level = level
   end
 
-  def level?(level)
-    levels.has_key?(level)
+  def level?(level=nil)
+    if level.nil?
+      !logger_level.nil?
+    else
+      levels.has_key?(level)
+    end
   end
   alias :logger_level? :level?
 
@@ -32,13 +36,13 @@ module Log::Level
     end
   end
 
-  def precedent?(level)
-    ordinal(level) <= ordinal
-  end
-
   def ordinal(level=nil)
     level ||= logger_level
     levels.fetch(level, no_ordinal)
+  end
+
+  def logger_ordinal
+    ordinal
   end
 
   def no_ordinal

@@ -44,12 +44,8 @@ class Log
     end
   end
 
-  def write?(level, tags)
-    ## TODO remove this
-    ## write if message level nil and logger level nil
-    return false if level.nil? && !self.level.nil?
-
-    write_level?(level) && write_tag?(tags)
+  def write?(message_level, message_tags)
+    write_level?(message_level) && write_tag?(message_tags)
   end
 
   def write(text, level, tags)

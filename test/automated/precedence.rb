@@ -6,23 +6,15 @@ context "Log" do
 
     logger.level = Log::Controls::Log::Levels.middle
 
-    logger.('some message', Log::Controls::Log::Levels.higher)
-    logger.('some other message', Log::Controls::Log::Levels.middle)
-    logger.('yet another message', Log::Controls::Log::Levels.lower)
+    logger.('higher message', Log::Controls::Log::Levels.higher)
+    logger.('middle message', Log::Controls::Log::Levels.middle)
+    logger.('lower message', Log::Controls::Log::Levels.lower)
 
     sink = logger.telemetry_sink
 
-    context "Messages with the same precedence as the logger" do
-      logged = sink.recorded_logged? do |record|
-        record.data.level == :middle
-      end
+    pp sink
 
-      test "Are logged" do
-        assert(logged)
-      end
-    end
-
-    context "Messages with higher precedence than the logger" do
+    context "Messages with higher level than the logger" do
       logged = sink.recorded_logged? do |record|
         record.data.level == :higher
       end
@@ -32,7 +24,17 @@ context "Log" do
       end
     end
 
-    context "Messages with lower precedence than the logger" do
+    context "Messages with the same level as the logger" do
+      logged = sink.recorded_logged? do |record|
+        record.data.level == :middle
+      end
+
+      test "Are logged" do
+        assert(logged)
+      end
+    end
+
+    context "Messages with lower level than the logger" do
       logged = sink.recorded_logged? do |record|
         record.data.level == :lower
       end

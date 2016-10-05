@@ -5,6 +5,8 @@ context "Log" do
     context "Logger's Level Isn't Set" do
       logger = Log::Controls::Log::Levels.example
 
+      refute(logger.level?)
+
       message = SecureRandom.hex
 
       logger.(message)

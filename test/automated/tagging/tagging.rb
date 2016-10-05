@@ -9,7 +9,7 @@ context "Log" do
     sink = logger.telemetry_sink
 
     context "Messages with tags matching the logger's tag" do
-      logger.('some message', :some_level, tag: :some_tag)
+      logger.('some message', tag: :some_tag)
 
       logged = sink.recorded_logged? do |record|
         record.data.tags == [:some_tag]
@@ -21,7 +21,7 @@ context "Log" do
     end
 
     context "Messages without tags matching the logger's tag" do
-      logger.('some other message', :some_level, tag: :some_other_tag)
+      logger.('some other message', tag: :some_other_tag)
 
       logged = sink.recorded_logged? do |record|
         record.data.tags == [:some_other_tag]

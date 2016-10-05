@@ -6,7 +6,7 @@ context "Log" do
 
     logger = subject.logger
 
-    logger.('some message', :some_level)
+    logger.('some message')
 
     records = logger.telemetry_sink.logged_records
 
