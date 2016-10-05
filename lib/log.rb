@@ -10,6 +10,7 @@ end
 
 require 'log/subject_name'
 require 'log/dependency'
+require 'log/level'
 require 'log/default_levels'
 require 'log/telemetry'
 require 'log/substitute'

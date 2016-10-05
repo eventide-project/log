@@ -3,15 +3,8 @@ class Log
 
   extend DefaultLevels
   extend Telemetry::Register
+  include Level
   include SubjectName
-
-  attr_reader :level
-  # attr_reader :tags
-
-  def level=(level)
-    assure_level(level)
-    @level = level
-  end
 
   def levels
     @levels ||= {}
@@ -166,17 +159,6 @@ class Log
     telemetry.record :logged, Telemetry::Data.new(subject_name, text, level, tags)
   end
 
-  def add_level(level)
-    return if level?(level)
-    LevelMethod.define(self, level)
-    levels[level] = levels.length
-  end
-
-  def remove_level(level)
-    return unless level?(level)
-    LevelMethod.remove(self, level)
-    levels.delete(level)
-  end
 
   def reset
     level_names.each do |level_name|
@@ -200,23 +182,6 @@ class Log
 
   def no_ordinal
     -1
-  end
-
-  def subject_name
-    @subject_name ||= self.class.subject_name(subject)
-  end
-
-  module LevelMethod
-    def self.define(logger, level_name)
-      level = level_name
-      logger.define_singleton_method(level) do |message, tag: nil, tags: nil|
-        self.(message, level, tag: tag, tags: tags)
-      end
-    end
-
-    def self.remove(logger, level_name)
-      logger.instance_eval "undef #{level_name}"
-    end
   end
 
   module Defaults
