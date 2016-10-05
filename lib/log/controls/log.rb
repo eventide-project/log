@@ -1,7 +1,9 @@
 module Log::Controls
   module Log
     def self.example
-      ::Log::Substitute.build
+      example = ::Log::Substitute.build
+      example.clear
+      example
     end
 
     module Levels
