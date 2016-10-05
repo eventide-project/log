@@ -2,7 +2,7 @@ require_relative '../automated_init'
 
 context "Log" do
   context "Logger Level" do
-    context "Set to one of the logger's levels" do
+    context "Set to One of the Logger's Levels" do
       logger = Log::Controls::Log::Levels.example
 
       control_level = Log::Controls::Log::Levels.middle
@@ -14,7 +14,7 @@ context "Log" do
       end
     end
 
-    context "Set a level that isn't one of the logger's levels" do
+    context "Set to a Level that Isn't One of the Logger's Levels" do
       logger = Log.no_defaults('some subject')
       unchanged_level = logger.level
 
