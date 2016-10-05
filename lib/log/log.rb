@@ -46,7 +46,7 @@ class Log
     instance
   end
 
-  def call(text, level=nil, tag: nil, tags: nil)
+  def call(message, level=nil, tag: nil, tags: nil)
     tags ||= []
     tags = Array(tags)
     tags << tag unless tag.nil?
@@ -54,7 +54,7 @@ class Log
     assure_level(level)
 
     if write?(level, tags)
-      write(text, level, tags)
+      write(message, level, tags)
     end
   end
 
@@ -84,6 +84,17 @@ class Log
         :trace,
         :data
       ]
+    end
+
+    def self.formatters
+      {
+        fatal: proc { |message| Rainbow(message).white.bg(:black) },
+        error: proc { |message| Rainbow(message).red.bg(:black) },
+        warn: proc { |message| Rainbow(message).yellow.bg(:black) },
+        info: proc { |message| Rainbow(message).green },
+        trace: proc { |message| Rainbow(message).white },
+        data: proc { |message| Rainbow(message).cyan }
+      }
     end
 
     def self.set(logger)

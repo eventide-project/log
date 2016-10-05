@@ -97,3 +97,12 @@ logger.higher_level 'some higher tagged message', tag: :some_other_tag
 
 logger.lower_level 'some lower tagged message', tag: :some_tag
 # Doesn't write because of level
+
+
+# Default levels and color
+logger = Log.build('Default Levels and Color')
+logger.max_level!
+
+logger.level_names.each do |level_name|
+  logger.("some #{level_name} message", level_name)
+end
