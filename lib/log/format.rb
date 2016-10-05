@@ -1,6 +1,6 @@
 module Log::Format
   def self.line(message, time, subject, level, &message_formatter)
-    "#{header(time, subject, level)}: #{message(message, &message_formatter)}"
+    "#{header(time, subject, level)} #{message(message, &message_formatter)}"
   end
 
   def self.message(message, &message_formatter)
@@ -13,7 +13,8 @@ module Log::Format
     unless level.nil?
       header << " #{level.to_s.upcase}"
     end
-    header
+    header << ':'
+    Color.header(header)
   end
 
   module Defaults

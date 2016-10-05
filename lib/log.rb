@@ -19,5 +19,6 @@ require 'log/telemetry'
 require 'log/substitute'
 require 'log/write'
 require 'log/format'
+require 'log/format/color'
 require 'log/log'
 
