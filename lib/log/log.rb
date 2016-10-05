@@ -1,8 +1,8 @@
 class Log
   class Error < RuntimeError; end
 
-  extend DefaultLevels
   extend Registry
+  include Levels
   extend Telemetry::Register
   include Level
   include SubjectName
@@ -15,18 +15,6 @@ class Log
 
   def telemetry
     @telemetry ||= ::Telemetry.build
-  end
-
-  def levels
-    @levels ||= {}
-  end
-
-  def levels?
-    !levels.empty?
-  end
-
-  def level_names
-    levels.keys.dup
   end
 
   def tags
@@ -59,7 +47,6 @@ class Log
 
   def self.configure(receiver, attr_name: nil)
     attr_name ||= :logger
-
     instance = get(receiver)
     receiver.public_send("#{attr_name}=", instance)
     instance
@@ -161,7 +148,7 @@ class Log
     end
 
     def self.set(logger)
-      DefaultLevels.add(logger)
+      Levels::Default.add(logger)
       logger.level = logger.class.level
     end
   end
