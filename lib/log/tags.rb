@@ -1,4 +1,8 @@
 module Log::Tags
+  def self.included(cls)
+    cls.extend ClassDefaults
+  end
+
   def tags
     @tags ||= []
   end
@@ -25,4 +29,14 @@ module Log::Tags
     tags.include?(tag)
   end
   alias :logger_tag? :tag?
+
+  module ClassDefaults
+    def tags
+      @tags ||= Log::Defaults.tags
+    end
+
+    def tags=(tags)
+      @tags = tags
+    end
+  end
 end

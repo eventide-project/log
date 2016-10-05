@@ -122,3 +122,12 @@ logger.level_names.each do |level_name|
   logger.("some #{level_name} message", level_name)
 end
 
+
+# Default tags
+logger = Log.no_defaults('Default Tags Demo')
+
+logger.('some tagged message', tag: :some_tag)
+# writes
+
+logger.('some other tagged message', tags: [:some_other_tag, :yet_another_tag])
+# doesn't write

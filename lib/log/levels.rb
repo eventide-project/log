@@ -1,6 +1,6 @@
 module Log::Levels
   def self.included(cls)
-    cls.extend Default
+    cls.extend ClassDefaults
   end
 
   def levels
@@ -17,7 +17,7 @@ module Log::Levels
     levels.keys.dup
   end
 
-  module Default
+  module ClassDefaults
     def levels
       @levels ||= Log::Defaults.levels
     end
@@ -39,7 +39,7 @@ module Log::Levels
       @level = level
     end
 
-    def self.add(logger)
+    def add_levels(logger)
       logger.class.levels.each do |level|
         logger.add_level(level, &Log::Defaults.level_formatters[level])
       end
