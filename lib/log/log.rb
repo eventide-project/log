@@ -3,10 +3,11 @@ class Log
 
   extend Registry
   include Levels
-  extend Telemetry::Register
   include Level
+  include Tags
   include Filter
   include SubjectName
+  extend Telemetry::Register
 
   initializer :subject
 
@@ -17,28 +18,6 @@ class Log
   def telemetry
     @telemetry ||= ::Telemetry.build
   end
-
-  def tags
-    @tags ||= []
-  end
-  alias :logger_tags :tags
-
-  def tags=(tags)
-    if tags.nil?
-      @tags = nil
-      return
-    end
-    @tags = Array(tags)
-  end
-
-  def tag=(tag)
-    self.tags = tag
-  end
-
-  def tags?
-    !tags.empty?
-  end
-  alias :logger_tags? :tags?
 
   def self.build(subject)
     instance = new(subject)
@@ -72,19 +51,11 @@ class Log
     precedent?(level) && write_tag?(tags)
   end
 
-  ## tag concern
-  def tag?(tag)
-    tags.include?(tag)
-  end
-  alias :logger_tag? :tag?
-
-
   def write(text, level, tags)
     message = text
     io.puts "#{subject_name} #{message}"
     telemetry.record :logged, Telemetry::Data.new(subject_name, text, level, tags)
   end
-
 
   def reset
     level_names.each do |level_name|

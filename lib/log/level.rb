@@ -32,10 +32,6 @@ module Log::Level
     end
   end
 
-  def precedent?(level)
-    ordinal(level) <= ordinal
-  end
-
   def ordinal(level=nil)
     level ||= logger_level
     levels.fetch(level, no_ordinal)
