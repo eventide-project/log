@@ -1,4 +1,4 @@
-require_relative 'automated_init'
+require_relative '../automated_init'
 
 context "Log" do
   context "Write at a Level that Isn't One of the Logger's Levels" do
