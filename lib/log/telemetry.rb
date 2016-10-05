@@ -5,7 +5,7 @@ module Log::Telemetry
     record :logged
   end
 
-  Data = Struct.new :subject_name, :message, :level, :tags
+  Data = Struct.new :subject_name, :message, :formatted_message, :level, :tags
 
   def self.sink
     Sink.new

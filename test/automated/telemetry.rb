@@ -20,6 +20,10 @@ context "Log" do
         assert(telemetry_data.message == 'some message')
       end
 
+      test "formatted_message" do
+        assert(telemetry_data.message == 'some message')
+      end
+
       test "level" do
         assert(telemetry_data.level == :some_level)
       end

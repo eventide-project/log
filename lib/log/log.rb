@@ -9,6 +9,8 @@ class Log
   include SubjectName
   extend Telemetry::Register
 
+  dependency :clock, Clock::UTC
+
   initializer :subject
 
   def io
@@ -21,6 +23,7 @@ class Log
 
   def self.build(subject)
     instance = new(subject)
+    Clock::UTC.configure(instance)
     Defaults.set(instance)
     instance
   end
@@ -50,8 +53,9 @@ class Log
 
   def write(text, level, tags)
     message = text
+    message = Format.line(message, clock.iso8601, subject_name, level)
     io.puts "#{subject_name} #{message}"
-    telemetry.record :logged, Telemetry::Data.new(subject_name, text, level, tags)
+    telemetry.record :logged, Telemetry::Data.new(subject_name, text, message, level, tags)
   end
 
   def clear
