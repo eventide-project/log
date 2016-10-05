@@ -3,7 +3,7 @@ require_relative '../../automated_init'
 context "Log" do
   context "Filter" do
     context "Level" do
-      context "Write Without Specifying a Level" do
+      context "Message Has No Level" do
         context "Logger's Level Isn't Set" do
           logger = Log::Controls::Log::Levels.example
 
