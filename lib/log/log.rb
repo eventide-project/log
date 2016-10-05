@@ -6,6 +6,7 @@ class Log
   include Level
   include Tags
   include Filter
+  include Write
   include SubjectName
   extend Telemetry::Register
 
@@ -49,13 +50,6 @@ class Log
 
   def write?(message_level, message_tags)
     write_level?(message_level) && write_tag?(message_tags)
-  end
-
-  def write(text, level, tags)
-    message = text
-    message = Format.line(message, clock.iso8601, subject_name, level)
-    io.puts "#{subject_name} #{message}"
-    telemetry.record :logged, Telemetry::Data.new(subject_name, text, message, level, tags)
   end
 
   def clear

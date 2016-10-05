@@ -8,5 +8,10 @@ module Log::Format
   end
 
   def self.header(time, subject, level)
+    if level.nil?
+      "#{[time]} #{subject}"
+    else
+      "[#{time}] #{subject} #{level.to_s.upcase}"
+    end
   end
 end
