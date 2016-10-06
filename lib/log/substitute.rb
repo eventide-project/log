@@ -13,6 +13,10 @@ module Log::Substitute
   class Log < ::Log
     attr_accessor :telemetry_sink
 
+    def clock
+      @clock ||= Clock::UTC::Substitute.build
+    end
+
     def device
       @device ||= NullDevice
     end

@@ -4,6 +4,10 @@ context "Log" do
   context "Telemetry" do
     context "Logged" do
       logger = Log::Controls::Log.example
+
+      time = Log::Controls::Time::Raw.example
+      logger.clock.now = time
+
       logger.add_level :some_level
 
       logger.level = :some_level
@@ -23,15 +27,18 @@ context "Log" do
         assert(telemetry_data.message == 'some message')
       end
 
-      test "formatted_message" do
-        assert(telemetry_data.message == 'some message')
+      test "line" do
+        assert(telemetry_data.line.include? Log::Controls::Time.example(precision: 5))
+        assert(telemetry_data.line.include? '(substitute logger)')
+        assert(telemetry_data.line.include? 'some message')
+        assert(telemetry_data.line.include? 'SOME_LEVEL')
       end
 
       test "level" do
         assert(telemetry_data.level == :some_level)
       end
 
-      test "level" do
+      test "tags" do
         assert(telemetry_data.tags == [:some_tag])
       end
     end
