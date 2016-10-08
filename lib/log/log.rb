@@ -14,6 +14,8 @@ class Log
 
   initializer :subject
 
+  attr_writer :device
+
   def device
     @device ||= Defaults.device
   end
@@ -53,9 +55,15 @@ class Log
 
     assure_level(level)
 
+    tag!(tags)
+
     if write?(level, tags)
       write(message, level, tags)
     end
+  end
+
+  def tag!(tags)
+    tags
   end
 
   def write?(message_level, message_tags)
