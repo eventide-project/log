@@ -10,6 +10,26 @@ class Log
   extend SubjectName
   extend Telemetry::Register
 
+  def self.inherited(cls)
+    cls.class_exec do
+      dependency_module = Module.new do
+        define_singleton_method :included do |reciever_class|
+          reciever_class.class_exec do
+            dependency :logger, cls
+
+            define_method :logger do
+              @logger ||= cls.configure self
+            end
+          end
+        end
+      end
+
+      const_set :Dependency, dependency_module
+    end
+  end
+
+  self.inherited(self)
+
   dependency :clock, Clock::UTC
 
   initializer :subject
