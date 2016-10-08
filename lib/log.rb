@@ -1,3 +1,5 @@
+require 'English'
+
 require 'rainbow'; Rainbow.enabled = true
 
 require 'initializer'; Initializer.activate

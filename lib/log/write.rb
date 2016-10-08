@@ -8,7 +8,7 @@ module Log::Write
 
     line = Log::Format.line(message, clock.iso8601(precision: 5), subject, level, &levels[level] &.message_formatter)
 
-    device.puts line
+    device.write "#{line}#{$INPUT_RECORD_SEPARATOR}"
 
     telemetry.record :logged, Log::Telemetry::Data.new(subject, message, level, tags, line)
   end

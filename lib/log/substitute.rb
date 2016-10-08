@@ -22,7 +22,7 @@ module Log::Substitute
     end
 
     class NullDevice
-      def self.puts(*)
+      def self.write(*)
       end
     end
   end
