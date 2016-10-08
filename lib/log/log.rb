@@ -7,7 +7,7 @@ class Log
   include Tags
   include Filter
   include Write
-  include SubjectName
+  extend SubjectName
   extend Telemetry::Register
 
   dependency :clock, Clock::UTC
@@ -25,6 +25,7 @@ class Log
   end
 
   def self.build(subject)
+    subject = subject_name(subject)
     instance = new(subject)
     Clock::UTC.configure(instance)
     set_defaults(instance)
