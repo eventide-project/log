@@ -26,7 +26,7 @@ context "Log" do
         end
 
         test "Subject" do
-          assert(line.include? logger.subject_name)
+          assert(line.include? logger.subject)
         end
 
         test "Level" do
