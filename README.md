@@ -1,7 +1,7 @@
-# telemetry_logger
+# log
 
-Telemetry logger. 
+Logging to STD IO with levels, tagging, and coloring.
 
 ## License
 
-The `telemetry_logger` library is released under the [MIT License](https://github.com/obsidian-btc/telemetry-logger/blob/master/MIT-License.txt).
+The `log` library is released under the [MIT License](https://github.com/eventide-project/log/blob/master/MIT-License.txt).
