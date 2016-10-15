@@ -1,5 +1,5 @@
 ENV['CONSOLE_DEVICE'] ||= 'stdout'
-ENV['LOG_LEVEL'] ||= 'data'
+ENV['LOG_LEVEL'] ||= 'trace'
 
 puts RUBY_DESCRIPTION
 

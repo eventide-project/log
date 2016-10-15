@@ -51,8 +51,7 @@ module Log::Defaults
       :warn,
       :info,
       :debug,
-      :trace,
-      :data
+      :trace
     ]
   end
 
@@ -62,8 +61,7 @@ module Log::Defaults
       error: proc { |message| Rainbow(message).red.bg(:black) },
       warn: proc { |message| Rainbow(message).yellow.bg(:black) },
       info: proc { |message| Rainbow(message).green },
-      trace: proc { |message| Rainbow(message).white },
-      data: proc { |message| Rainbow(message).cyan }
+      trace: proc { |message| Rainbow(message).white }
     }
   end
 end
