@@ -50,17 +50,24 @@ module Log::Level
       return
     end
 
-    if !levels?
-      raise Log::Error, "Level #{level.inspect} cannot be set. The logger has no levels."
-    end
+    unless level == :_none
+      if !levels?
+        raise Log::Error, "Level #{level.inspect} cannot be set. The logger has no levels."
+      end
 
-    if !level?(level)
-      raise Log::Error, "Level #{level.inspect} must be one of: #{levels.keys.join(', ')}"
+      if !level?(level)
+        raise Log::Error, "Level #{level.inspect} must be one of: #{levels.keys.join(', ')}"
+      end
     end
   end
 
   def ordinal(level=nil)
     level ||= logger_level
+
+    if level == :_none
+      return -1
+    end
+
     level = levels[level]
     return no_ordinal if level.nil?
     level.ordinal
