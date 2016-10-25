@@ -69,7 +69,7 @@ class Log
     instance
   end
 
-  def call(message, level=nil, tag: nil, tags: nil)
+  def call(message=nil, level=nil, tag: nil, tags: nil, &blk)
     tags ||= []
     tags = Array(tags)
     tags << tag unless tag.nil?
@@ -79,6 +79,11 @@ class Log
     tag!(tags)
 
     if write?(level, tags)
+      if block_given?
+        message = blk.call
+      end
+      raise ArgumentError, "Log message not provided" if message.nil?
+
       write(message, level, tags)
     end
   end

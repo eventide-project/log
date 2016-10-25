@@ -104,8 +104,8 @@ module Log::Level
   module Method
     def self.define(logger, level_name)
       level = level_name
-      logger.define_singleton_method(level) do |message, tag: nil, tags: nil|
-        self.(message, level, tag: tag, tags: tags)
+      logger.define_singleton_method(level) do |message=nil, tag: nil, tags: nil, &blk|
+        self.(message, level, tag: tag, tags: tags, &blk)
       end
     end
 
