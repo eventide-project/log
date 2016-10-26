@@ -11,4 +11,4 @@ logger.level = :some_level
 logger.some_level { 'some block message' }
 
 logger.tag = :some_tag
-logger.some_level(:tag => :some_tag) { 'some tagged block message' }
+logger.some_level(tag: :some_tag) { 'some tagged block message' }
