@@ -48,7 +48,11 @@ module Log::Filter
   end
 
   def tags_intersect?(message_tags)
-    !(logger_tags & message_tags).empty?
+    if !(message_tags & logger_excluded_tags).empty?
+      return false
+    end
+
+    !(logger_included_tags & message_tags).empty?
   end
   alias :logger_tags_intersect? :tags_intersect?
 end
