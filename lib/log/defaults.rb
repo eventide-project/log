@@ -60,8 +60,8 @@ module Log::Defaults
       error: proc { |message| Rainbow(message).bright.white.bg(:red) },
       fatal: proc { |message| Rainbow(message).red.bg(:black) },
       warn: proc { |message| Rainbow(message).yellow.bg(:black) },
-      debug: proc { |message| Rainbow(message).cyan },
-      trace: proc { |message| Rainbow(message).green }
+      debug: proc { |message| Rainbow(message).green },
+      trace: proc { |message| Rainbow(message).cyan }
     }
   end
 end
