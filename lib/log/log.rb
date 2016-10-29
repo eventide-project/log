@@ -70,9 +70,9 @@ class Log
   end
 
   def call(message=nil, level=nil, tag: nil, tags: nil, &blk)
-    tags ||= []
+    tag = Array(tag)
     tags = Array(tags)
-    tags << tag unless tag.nil?
+    tags = tags + tag
 
     assure_level(level)
 
