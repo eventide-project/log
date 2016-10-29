@@ -1,5 +1,5 @@
 module Log::Format::Color
   def self.header(text)
-    Rainbow(text).yellow
+    Rainbow(text).white
   end
 end
