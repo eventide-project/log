@@ -22,7 +22,7 @@ module Log::Filter
       return true
     end
 
-    if !message_tags.empty? && log_all_tags?
+    if log_all_tags?
       return true
     end
 
