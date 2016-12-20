@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name = 'evt-log'
-  s.version = '0.4.3.2'
+  s.version = '0.4.3.3'
   s.summary = 'Logging to STD IO with levels, tagging, and coloring'
   s.description = ' '
 
@@ -22,5 +22,5 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'rainbow'
 
-  s.add_development_dependency 'ntl-test_bench'
+  s.add_development_dependency 'test_bench'
 end
