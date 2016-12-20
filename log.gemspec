@@ -15,12 +15,12 @@ Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.required_ruby_version = '>= 2.3.3'
 
-  s.add_runtime_dependency 'initializer'
-  s.add_runtime_dependency 'dependency'
-  s.add_runtime_dependency 'telemetry'
-  s.add_runtime_dependency 'clock'
+  s.add_runtime_dependency 'evt-initializer'
+  s.add_runtime_dependency 'evt-dependency'
+  s.add_runtime_dependency 'evt-telemetry'
+  s.add_runtime_dependency 'evt-clock'
 
   s.add_runtime_dependency 'rainbow'
 
-  s.add_development_dependency 'test_bench'
+  s.add_development_dependency 'ntl-test_bench'
 end
