@@ -57,11 +57,11 @@ module Log::Defaults
 
   def self.level_formatters
     {
-      error: proc { |message| Rainbow(message).bright.white.bg(:red) },
-      fatal: proc { |message| Rainbow(message).red.bg(:black) },
-      warn: proc { |message| Rainbow(message).yellow.bg(:black) },
-      debug: proc { |message| Rainbow(message).green },
-      trace: proc { |message| Rainbow(message).cyan }
+      error: proc { |message| TerminalColors::Apply.(message, bg: :red, bold: true) },
+      fatal: proc { |message| TerminalColors::Apply.(message, fg: :red, bg: :black) },
+      warn: proc { |message| TerminalColors::Apply.(message, fg: :yellow, bg: :black) },
+      debug: proc { |message| TerminalColors::Apply.(message, fg: :green) },
+      trace: proc { |message| TerminalColors::Apply.(message, fg: :cyan) }
     }
   end
 end
