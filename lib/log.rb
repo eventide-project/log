@@ -1,6 +1,6 @@
 require 'English'
 
-require 'rainbow'; Rainbow.enabled = true
+require 'terminal_colors'
 
 require 'initializer'; Initializer.activate
 require 'dependency'; Dependency.activate
