@@ -29,8 +29,8 @@ context "Log" do
             record.data.tags == []
           end
 
-          test "Are not logged" do
-            refute(logged)
+          test "Are logged" do
+            assert(logged)
           end
         end
       end
