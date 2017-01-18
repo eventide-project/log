@@ -1,6 +1,8 @@
 module Log::Level
   LevelInfo = Struct.new(:name, :ordinal, :message_formatter)
 
+  attr_writer :logger_ordinal
+
   def level
     @level
   end
@@ -17,6 +19,10 @@ module Log::Level
 
     assure_level(level)
     @level = level
+
+    set_logger_ordinal
+
+    level
   end
   alias :logger_level= :level=
 
@@ -74,7 +80,11 @@ module Log::Level
   end
 
   def logger_ordinal
-    ordinal
+    @logger_ordinal ||= set_logger_ordinal
+  end
+
+  def set_logger_ordinal
+    self.logger_ordinal = ordinal
   end
 
   def no_ordinal
