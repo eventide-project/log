@@ -52,6 +52,8 @@ module Log::Level
   end
 
   def assure_level(level)
+    return if levels.key? level
+
     if level.nil?
       return
     end
