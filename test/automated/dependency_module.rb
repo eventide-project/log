@@ -8,7 +8,7 @@ context "Log" do
 
     obj = Example.new
 
-    test "Adds the logger accessor" do
+    test "Adds the logger attribute" do
       assert(obj.respond_to? :logger)
     end
 
