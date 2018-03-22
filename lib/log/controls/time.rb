@@ -1,3 +1,5 @@
-module Log::Controls
-  Time = Clock::Controls::Time
+class Log
+  module Controls
+    Time = Clock::Controls::Time
+  end
 end

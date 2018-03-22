@@ -1,26 +1,28 @@
-module Log::Controls
-  module Subject
-    def self.example
-      Example.new
-    end
-
-    def self.new
-      example
-    end
-
-    module Operational
+class Log
+  module Controls
+    module Subject
       def self.example
-        Subject::Example.build
+        Example.new
       end
-    end
 
-    class Example
-      dependency :logger, ::Log
+      def self.new
+        example
+      end
 
-      def self.build
-        instance = new
-        ::Log.configure(instance)
-        instance
+      module Operational
+        def self.example
+          Subject::Example.build
+        end
+      end
+
+      class Example
+        dependency :logger, ::Log
+
+        def self.build
+          instance = new
+          ::Log.configure(instance)
+          instance
+        end
       end
     end
   end
