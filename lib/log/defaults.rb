@@ -1,67 +1,69 @@
-module Log::Defaults
-  def self.level
-    env_level = ENV['LOG_LEVEL']
-    return env_level.to_sym if !env_level.nil?
+class Log
+  module Defaults
+    def self.level
+      env_level = ENV['LOG_LEVEL']
+      return env_level.to_sym if !env_level.nil?
 
-    :info
-  end
+      :info
+    end
 
-  def self.tags
-    env_tags = ENV['LOG_TAGS']
+    def self.tags
+      env_tags = ENV['LOG_TAGS']
 
-    return [] if env_tags.nil?
+      return [] if env_tags.nil?
 
-    tags = env_tags.split(',')
+      tags = env_tags.split(',')
 
-    tags.map { |tag| tag.to_sym }
-  end
+      tags.map { |tag| tag.to_sym }
+    end
 
-  def self.device
-    env_device = ENV['CONSOLE_DEVICE']
+    def self.device
+      env_device = ENV['CONSOLE_DEVICE']
 
-    device = nil
+      device = nil
 
-    if !env_device.nil?
-      if !['stderr', 'stdout'].include?(env_device)
-        raise "The CONSOLE_DEVICE should be either 'stderr' (default) or 'stdout'"
+      if !env_device.nil?
+        if !['stderr', 'stdout'].include?(env_device)
+          raise "The CONSOLE_DEVICE should be either 'stderr' (default) or 'stdout'"
+        else
+          device = (env_device == 'stderr' ? STDERR : STDOUT)
+        end
       else
-        device = (env_device == 'stderr' ? STDERR : STDOUT)
+        device = STDERR
       end
-    else
-      device = STDERR
+
+      device
     end
 
-    device
-  end
+    def self.formatters
+      env_formatters = ENV['LOG_FORMATTERS']
 
-  def self.formatters
-    env_formatters = ENV['LOG_FORMATTERS']
+      if env_formatters.nil?
+        env_formatters = :on
+      end
 
-    if env_formatters.nil?
-      env_formatters = :on
+      env_formatters.to_sym
     end
 
-    env_formatters.to_sym
-  end
+    def self.levels
+      [
+        :fatal,
+        :error,
+        :warn,
+        :info,
+        :debug,
+        :trace
+      ]
+    end
 
-  def self.levels
-    [
-      :fatal,
-      :error,
-      :warn,
-      :info,
-      :debug,
-      :trace
-    ]
-  end
-
-  def self.level_formatters
-    {
-      error: proc { |message| TerminalColors::Apply.(message, bg: :red, bold: true) },
-      fatal: proc { |message| TerminalColors::Apply.(message, fg: :red, bg: :black) },
-      warn: proc { |message| TerminalColors::Apply.(message, fg: :yellow, bg: :black) },
-      debug: proc { |message| TerminalColors::Apply.(message, fg: :green) },
-      trace: proc { |message| TerminalColors::Apply.(message, fg: :cyan) }
-    }
+    def self.level_formatters
+      {
+        error: proc { |message| TerminalColors::Apply.(message, bg: :red, bold: true) },
+        fatal: proc { |message| TerminalColors::Apply.(message, fg: :red, bg: :black) },
+        warn: proc { |message| TerminalColors::Apply.(message, fg: :yellow, bg: :black) },
+        debug: proc { |message| TerminalColors::Apply.(message, fg: :green) },
+        trace: proc { |message| TerminalColors::Apply.(message, fg: :cyan) }
+      }
+    end
   end
 end
