@@ -7,7 +7,7 @@ class Log
         message = '(empty log message)'
       end
 
-      line = Log::Format.line(message, clock.iso8601(precision: 5), subject, level, &levels[level] &.message_formatter)
+      line = Log::Format.line(message, clock.iso8601(precision: 5), subject, level, device, &levels[level] &.message_formatter)
 
       device.write "#{line}#{$INPUT_RECORD_SEPARATOR}"
 
