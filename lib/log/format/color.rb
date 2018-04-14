@@ -9,6 +9,11 @@ class Log
         return text unless color?(device)
         TerminalColors::Apply.(text, fg: :white)
       end
+
+      def self.message(text, device, **options)
+        return text unless color?(device)
+        TerminalColors::Apply.(text, options)
+      end
     end
   end
 end

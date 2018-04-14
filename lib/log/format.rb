@@ -7,7 +7,7 @@ class Log
     def self.message(message, device, &message_formatter)
       return message unless block_given?
       if Log::Defaults.formatters == :on
-        return message_formatter.(message)
+        return message_formatter.(message, device)
       else
         return message
       end

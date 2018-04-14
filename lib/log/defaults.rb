@@ -58,11 +58,11 @@ class Log
 
     def self.level_formatters
       {
-        error: proc { |message| TerminalColors::Apply.(message, bg: :red, bold: true) },
-        fatal: proc { |message| TerminalColors::Apply.(message, fg: :red, bg: :black) },
-        warn: proc { |message| TerminalColors::Apply.(message, fg: :yellow, bg: :black) },
-        debug: proc { |message| TerminalColors::Apply.(message, fg: :green) },
-        trace: proc { |message| TerminalColors::Apply.(message, fg: :cyan) }
+        error: proc { |message, device| Format::Color.message(message, device, bg: :red, bold: true) },
+        fatal: proc { |message, device| Format::Color.message(message, device, fg: :red, bg: :black) },
+        warn: proc { |message, device| Format::Color.message(message, device, fg: :yellow, bg: :black) },
+        debug: proc { |message, device| Format::Color.message(message, device, fg: :green) },
+        trace: proc { |message, device| Format::Color.message(message, device, fg: :cyan) }
       }
     end
   end
