@@ -25,6 +25,10 @@ class Log
       class NullDevice
         def self.write(*)
         end
+
+        def self.tty?
+          true
+        end
       end
     end
   end
