@@ -1,7 +1,12 @@
 class Log
   module Format
     def self.line(message, time, subject, level, device, &message_formatter)
-      "#{header(time, subject, level, device)} #{message(message, device, &message_formatter)}"
+      header = nil
+      if Defaults.header == :on
+        header = "#{header(time, subject, level, device)} "
+      end
+
+      "#{header}#{message(message, device, &message_formatter)}"
     end
 
     def self.message(message, device, &message_formatter)
@@ -25,6 +30,16 @@ class Log
     module Defaults
       def self.message_formatter
         proc {|message| message }
+      end
+
+      def self.header
+        env_header = ENV['LOG_HEADER']
+
+        if env_header.nil?
+          env_header = :on
+        end
+
+        env_header.to_sym
       end
     end
   end
