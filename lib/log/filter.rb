@@ -23,6 +23,10 @@ class Log
         return true
       end
 
+      if message_tags.include?(:*)
+        return true
+      end
+
       if log_all_tags?
         return true
       end
