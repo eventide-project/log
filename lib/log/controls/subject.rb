@@ -16,6 +16,8 @@ class Log
       end
 
       class Example
+        ::Dependency.activate(self)
+
         dependency :logger, ::Log
 
         def self.build

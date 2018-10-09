@@ -3,7 +3,7 @@ require 'English'
 require 'terminal_colors'
 
 require 'initializer'
-require 'dependency'; Dependency.activate
+require 'dependency'
 require 'telemetry'
 require 'clock'
 

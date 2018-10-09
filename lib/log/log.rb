@@ -1,6 +1,7 @@
 class Log
   class Error < RuntimeError; end
 
+  Dependency.activate(self)
   Initializer.activate(self)
 
   extend Registry
