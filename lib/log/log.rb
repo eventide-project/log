@@ -1,6 +1,8 @@
 class Log
   class Error < RuntimeError; end
 
+  Initializer.activate(self)
+
   extend Registry
   include Levels
   include Level
