@@ -15,7 +15,7 @@ class Log
       dependency_module = Module.new do
         define_singleton_method :included do |reciever_class|
           reciever_class.class_exec do
-            dependency :logger, cls
+            ::Dependency::Attribute.define(self, :logger, cls)
 
             define_method :logger do
               @logger ||= cls.configure self
