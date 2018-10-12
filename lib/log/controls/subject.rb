@@ -16,7 +16,7 @@ class Log
       end
 
       class Example
-        ::Dependency.activate(self)
+        include ::Dependency
 
         dependency :logger, ::Log
 

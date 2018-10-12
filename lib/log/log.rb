@@ -1,8 +1,8 @@
 class Log
   class Error < RuntimeError; end
 
-  Dependency.activate(self)
-  Initializer.activate(self)
+  include Dependency
+  include Initializer
 
   extend Registry
   include Levels
