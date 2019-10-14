@@ -21,8 +21,8 @@ context "Log" do
       unknown_level = :some_other_level
 
       test "Is an error" do
-        assert proc { logger.level = unknown_level } do
-          raises_error? Log::Error
+        assert_raises Log::Error do
+          logger.level = unknown_level
         end
       end
 

@@ -22,8 +22,8 @@ context "Log" do
         logger.add_level :some_level
 
         test "Block is not evaluated" do
-          refute proc { logger.some_level { fail } } do
-            raises_error?
+          refute_raises RuntimeError do
+            logger.some_level { fail }
           end
         end
       end

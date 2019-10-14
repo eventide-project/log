@@ -8,8 +8,8 @@ context "Log" do
       sink = logger.telemetry_sink
 
       test "Is an error" do
-        assert proc { logger.call } do
-          raises_error? ArgumentError
+        assert_raises ArgumentError do
+          logger.call
         end
       end
     end
