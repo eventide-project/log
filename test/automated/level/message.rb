@@ -9,7 +9,7 @@ context "Log" do
     sink = logger.telemetry_sink
 
     test "Is an error" do
-      assert_raises Log::Error do
+      assert_raises(Log::Error) do
         logger.('some message', unknown_level)
       end
     end

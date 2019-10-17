@@ -22,7 +22,7 @@ context "Log" do
         logger.add_level :some_level
 
         test "Block is not evaluated" do
-          refute_raises RuntimeError do
+          refute_raises(RuntimeError) do
             logger.some_level { fail }
           end
         end
