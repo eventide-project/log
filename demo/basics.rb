@@ -19,8 +19,8 @@ logger.('some unleveled message')
 
 
 # Unknown level
-assert proc { logger.('some message', :some_unknown_level) } do
- raises_error? Log::Error
+assert_raises(Log::Error) do
+  logger.('some message', :some_unknown_level)
 end
 
 
@@ -33,8 +33,8 @@ logger.add_level :lower_level
 logger.level = :higher_level
 
 # Unknown logger level
-assert proc { logger.level = :some_unknown_level } do
- raises_error? Log::Error
+assert_raises(Log::Error) do
+  logger.level = :some_unknown_level
 end
 
 
