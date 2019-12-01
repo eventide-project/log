@@ -24,7 +24,7 @@ class Log
 
       if !env_device.nil?
         if !['stderr', 'stdout'].include?(env_device)
-          raise "The CONSOLE_DEVICE should be either 'stderr' (default) or 'stdout'"
+          raise Error, "The CONSOLE_DEVICE should be either 'stderr' (default) or 'stdout'"
         else
           device = (env_device == 'stderr' ? STDERR : STDOUT)
         end
