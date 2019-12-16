@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name = 'evt-log'
-  s.version = '2.1.0.0'
+  s.version = '2.1.1.0'
   s.summary = 'Logging to STD IO with levels, tagging, and coloring'
   s.description = ' '
 
