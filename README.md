@@ -339,9 +339,7 @@ Instance of the logger class.
 
 By constructing a logger using the initializer, the logger's dependencies are not set to operational dependencies. They remain _inert substitutes_.
 
-::: tip
 See the [useful objects](/user-guide/useful-objects.md#substitutes) user guide for background on inert substitutes.
-:::
 
 ## Assigning a Logger as a Dependency
 
@@ -372,9 +370,7 @@ something.logger
   </p>
 </div>
 
-::: tip
 See the [useful objects](/user-guide/useful-objects.md#configuring-dependencies) user guide for background on configuring dependencies.
-:::
 
 ### The Log::Dependency Module
 
