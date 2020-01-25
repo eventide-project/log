@@ -380,7 +380,7 @@ The `Log::Dependency` is the most common way of assigning a logger to a subject.
 
 ``` ruby
 class Something
-  include Logger::Dependency
+  include Log::Dependency
 
   # ...
 end
