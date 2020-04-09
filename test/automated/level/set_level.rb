@@ -20,8 +20,6 @@ context "Log" do
 
         unknown_level = :some_other_level
 
-  logger.level = unknown_level
-
         test "Is an error" do
           assert_raises(Log::Error) do
             logger.level = unknown_level
