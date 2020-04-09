@@ -53,11 +53,11 @@ class Log
 
       unless level == :_none
         if !levels?
-          raise Log::Error, "Level #{level.inspect} cannot be set. The logger has no levels."
+          raise Log::Error, "Level \"#{level}\" cannot be set. The logger has no levels defined."
         end
 
         if !level?(level)
-          raise Log::Error, "Level #{level.inspect} must be one of: #{levels.keys.join(', ')}"
+          raise Log::Error, "Level \"#{level}\" must be one of: #{levels.keys.reduce('') { |acc, val| acc << "\"#{val}\", "  }.chomp(', ')}"
         end
       end
     end
