@@ -12,7 +12,7 @@ class Log
 
       def self.message(text, device, **options)
         return text unless color?(device)
-        TerminalColors::Apply.(text, options)
+        TerminalColors::Apply.(text, **options)
       end
     end
   end
