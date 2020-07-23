@@ -13,7 +13,9 @@ context "Log" do
     end
 
     test "Logs" do
-      obj.logger.('some message')
+      refute_raises do
+        obj.logger.('some message')
+      end
     end
   end
 end
