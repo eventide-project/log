@@ -27,7 +27,7 @@ class Log
         unless tag.to_s.start_with?('-')
           included_tags << tag
         else
-          excluded_tags << tag[1..-1].to_sym
+          excluded_tags << tag.to_s[1..-1].to_sym
         end
       end
 
