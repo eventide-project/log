@@ -27,7 +27,7 @@ class Log
         return true
       end
 
-      if log_all_tags?
+      if log_all_tags? && !tags_exluded_intersect?(message_tags)
         return true
       end
 
@@ -52,8 +52,12 @@ class Log
       logger_tag?(:_untagged)
     end
 
+    def tags_exluded_intersect?(message_tags)
+      return !(message_tags & logger_excluded_tags).empty?
+    end
+
     def tags_intersect?(message_tags)
-      if !(message_tags & logger_excluded_tags).empty?
+      if tags_exluded_intersect?(message_tags)
         return false
       end
 
