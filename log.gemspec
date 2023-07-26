@@ -22,5 +22,5 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'terminal_colors'
 
-  s.add_development_dependency 'test_bench'
+  s.add_development_dependency 'test_bench', '~> 2.0.0.0.pre5'
 end
